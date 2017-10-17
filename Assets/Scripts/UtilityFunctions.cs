@@ -6,7 +6,6 @@ public class UtilityFunctions
 {
 	public static Transform headTransform(Transform trans)
 	{
-		
 		// get turret's head
 		foreach (var cmp in trans.GetComponentsInChildren<Transform>())
 		{
@@ -17,5 +16,4 @@ public class UtilityFunctions
 		}
 		return null;
 	}
-
 }

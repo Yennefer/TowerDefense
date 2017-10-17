@@ -11,18 +11,19 @@ public class BombTurret : InitData {
 
 	private Transform head;
 
-	void Start () 
+	private void Start()
 	{
 		// get turret's head
 		head = UtilityFunctions.headTransform(transform);
 
 		// tie a function with inputmanager's delegate
-		InputManager.BallFire = Fire;
+		InputManager.BombFire = Fire;
 	}
 	
-	void Update () 
-	{		
+	private void Update()
+	{
 		head.LookAt(targ.transform);
+		bombSpawn.LookAt(targ.transform);
 	}
 
 	private void Fire()
@@ -31,11 +32,9 @@ public class BombTurret : InitData {
 		GameObject bomb = Instantiate(bombPrefab, bombSpawn.position, bombSpawn.rotation);
 
 		// add velocity vector
-		bomb.GetComponent<Rigidbody>().velocity = bombSpawn.transform.right * 50;
+		bomb.GetComponent<Rigidbody>().velocity = bombSpawn.forward * 50;
 
 		// destroy bomb after the time specified
 		Destroy(bomb, 2.0f);
-
 	}
-
 }

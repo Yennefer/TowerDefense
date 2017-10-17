@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
-	public static Action BallFire;
+	public static Action BombFire;
 	public static Action LaserFire;
 	public static Action ObstBoxFire;
 
@@ -17,25 +17,25 @@ public class InputManager : MonoBehaviour {
 	private KeyCode obstTurret;
 
 
-	void Start () 
+	private void Start()
 	{
 		
 	}
 	
-	void FixedUpdate () 
+	private void Update()
 	{
-		// firing the ball
+		// firing the bomb
 		if (Input.GetKeyDown(bombTurret))
 		{
-			Debug.Log("Fire delegate");
-			BallFire();
+			BombFire();
+			Debug.Log("Bomb launched");
 		}
 
 		// firing the obstacle box
 		if (Input.GetKeyDown(obstTurret))
 		{
-			Debug.Log("Fire delegate");
 			ObstBoxFire();
+			Debug.Log("Obstacle box launched");
 		}
 
 		// firing the laser

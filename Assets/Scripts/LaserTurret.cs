@@ -10,18 +10,16 @@ public class LaserTurret : InitData {
 	private LineRenderer laserLine;
 	private Transform head;
 
-	
-
-	void Start () 
+	private void Start()
 	{
+		// get turret's head
 		head = UtilityFunctions.headTransform(transform);
 
-		
-
+		// get linerenderer
 		laserLine = GetComponent<LineRenderer>();
 	}
 	
-	void Update () 
+	private void Update()
 	{
 		head.LookAt(targ.transform);
 
@@ -41,5 +39,10 @@ public class LaserTurret : InitData {
 			Destroy(hit.collider.gameObject);
 			laserLine.enabled = false;
 		}
+	}
+
+	private void Fire()
+	{
+		
 	}
 }

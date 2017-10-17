@@ -6,12 +6,13 @@ public class InitData : MonoBehaviour {
 
 	protected GameObject targ;
 
-	void Awake ()
+	private void Awake()
 	{
+		// get a target to shoot at
 		targ = GameObject.FindGameObjectWithTag("Target");
 	}
 	
-	void Update ()
+	private void Update()
 	{
 		//randomizeShot();
 	}
