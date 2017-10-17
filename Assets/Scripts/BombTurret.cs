@@ -22,8 +22,8 @@ public class BombTurret : InitData {
 	
 	private void Update()
 	{
-		head.LookAt(targ.transform);
-		bombSpawn.LookAt(targ.transform);
+		head.LookAt(targ);
+		bombSpawn.LookAt(targ);
 	}
 
 	private void Fire()
@@ -32,7 +32,7 @@ public class BombTurret : InitData {
 		GameObject bomb = Instantiate(bombPrefab, bombSpawn.position, bombSpawn.rotation);
 
 		// add velocity vector
-		bomb.GetComponent<Rigidbody>().velocity = bombSpawn.forward * 50;
+		bomb.GetComponent<Rigidbody>().velocity = UtilityFunctions.randomizeShot(bombSpawn) * 50;
 
 		// destroy bomb after the time specified
 		Destroy(bomb, 2.0f);

@@ -23,8 +23,8 @@ public class ObstTurret : InitData {
 	// Update is called once per frame
 	private void Update()
 	{
-		head.LookAt(targ.transform);
-		obstSpawn.LookAt(targ.transform);
+		head.LookAt(targ);
+		obstSpawn.LookAt(targ);
 	}
 
 	private void Fire()
@@ -33,9 +33,9 @@ public class ObstTurret : InitData {
 		GameObject obstacle = Instantiate(obstPrefab, obstSpawn.position, obstSpawn.rotation);
 
 		// add velocity vector
-		obstacle.GetComponent<Rigidbody>().velocity = obstSpawn.forward * 20;
+		obstacle.GetComponent<Rigidbody>().velocity = UtilityFunctions.randomizeShot(obstSpawn)* 20;
 
 		// destroy bomb after the time specified. Will be changed.
 		Destroy(obstacle, 4.0f);
-	}	
+	}
 }

@@ -21,15 +21,15 @@ public class LaserTurret : InitData {
 	
 	private void Update()
 	{
-		head.LookAt(targ.transform);
+		head.LookAt(targ);
 
 		RaycastHit hit;
 
-		Physics.Raycast(laserEmit.position, targ.transform.position, out hit, 50.0f);
+		Physics.Raycast(laserEmit.position, targ.position, out hit, 50.0f);
 
-		laserLine.SetPosition(0, laserEmit.transform.position);
+		laserLine.SetPosition(0, laserEmit.position);
 
-		Debug.DrawLine(laserEmit.position, targ.transform.position, Color.red);
+		Debug.DrawLine(laserEmit.position, targ.position, Color.red);
 		if (Input.GetKeyDown(KeyCode.LeftControl))
 		{
 			laserLine.SetPosition(1, hit.point);
