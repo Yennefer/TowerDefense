@@ -33,8 +33,5 @@ public class BombTurret : InitData {
 
 		// add velocity vector
 		bomb.GetComponent<Rigidbody>().velocity = UtilityFunctions.randomizeShot(bombSpawn) * 50;
-
-		// destroy bomb after the time specified
-		Destroy(bomb, 2.0f);
 	}
 }
