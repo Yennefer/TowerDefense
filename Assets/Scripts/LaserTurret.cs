@@ -31,7 +31,7 @@ public class LaserTurret : InitData {
 
 	private void Fire()
 	{
-		if (Physics.Raycast(rotator.position, rotator.forward, out hit, 50.0f))
+		if (Physics.Raycast(rotator.position, UtilityFunctions.randomizeShot(rotator), out hit, 50.0f))
 		{
 			Debug.Log(hit.collider.name);
 			if (hit.collider.GetComponent<Rigidbody>()) 
