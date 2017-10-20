@@ -10,13 +10,11 @@ public class ObstTurret : InitData {
 	[SerializeField]
 	private Transform obstSpawn;
 
-	private Transform head;
+	//temp
+	public Transform targ;
 
 	private void Start()
 	{
-		// get turret's head
-		head = UtilityFunctions.headTransform(transform);
-
 		// tie a function with inputmanager's delegate
 		InputManager.ObstBoxFire = Fire;
 	}
@@ -24,8 +22,7 @@ public class ObstTurret : InitData {
 	// Update is called once per frame
 	private void Update()
 	{
-		head.LookAt(targ);
-		obstSpawn.LookAt(targ);
+		rotator.LookAt(targ);
 	}
 
 	private void Fire()

@@ -8,41 +8,34 @@ public class LaserTurret : InitData {
 	private Transform laserEmit;
 	[SerializeField]
 	private LineRenderer laserLine;
-	private Transform head;
+
+	private RaycastHit hit;
+	//temp
+	public Transform targ;
 
 	private void Start()
 	{
-		// get turret's head
-		head = UtilityFunctions.headTransform(transform);
-
 		// get linerenderer
 		laserLine = GetComponent<LineRenderer>();
+
+		// tie a function with inputmanager's delegate
+		InputManager.LaserFire = Fire;
 	}
 	
 	private void Update()
 	{
-		head.LookAt(targ);
+		rotator.LookAt(targ);
 
-		RaycastHit hit;
-
-		Physics.Raycast(laserEmit.position, targ.position, out hit, 50.0f);
-
-		laserLine.SetPosition(0, laserEmit.position);
-
-		Debug.DrawLine(laserEmit.position, targ.position, Color.red);
-		if (Input.GetKeyDown(KeyCode.LeftControl))
-		{
-			laserLine.SetPosition(1, hit.point);
-			laserLine.enabled = true;
-			Debug.Log("test");
-			Debug.Log(hit.collider.gameObject.name);
-			Destroy(hit.collider.gameObject);
-			laserLine.enabled = false;
-		}
+		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
 	}
 
 	private void Fire()
 	{
-		
+		if (Physics.Raycast(rotator.position, rotator.forward, out hit, 50.0f))
+		{
+			Debug.Log(hit.collider.name);
+			if (hit.collider.GetComponent<Rigidbody>()) 
+			Destroy(hit.collider.gameObject);
+		}
 	}
 }

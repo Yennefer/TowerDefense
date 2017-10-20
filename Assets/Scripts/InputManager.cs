@@ -39,6 +39,10 @@ public class InputManager : MonoBehaviour {
 		}
 
 		// firing the laser
-
+		if (Input.GetKeyDown(laserTurret))
+		{
+			LaserFire();
+			Debug.Log("Laser fired");
+		}
 	}
 }

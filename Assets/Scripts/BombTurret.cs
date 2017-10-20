@@ -9,21 +9,18 @@ public class BombTurret : InitData {
 	[SerializeField]
 	private Transform bombSpawn;
 
-	private Transform head;
+	//temp
+	public Transform targ;
 
 	private void Start()
 	{
-		// get turret's head
-		head = UtilityFunctions.headTransform(transform);
-
 		// tie a function with inputmanager's delegate
 		InputManager.BombFire = Fire;
 	}
 	
 	private void Update()
 	{
-		head.LookAt(targ);
-		bombSpawn.LookAt(targ);
+		rotator.LookAt(targ);
 	}
 
 	private void Fire()

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class InitData : MonoBehaviour {
 
-	protected Transform targ;
+	protected Transform rotator;
 
 	private void Awake()
 	{
-		// get a target to shoot at
-		targ = GameObject.FindGameObjectWithTag("Target").transform;
+		// get turret's rotator
+		rotator = GetComponent<Transform>();
 	}
 	
 }
