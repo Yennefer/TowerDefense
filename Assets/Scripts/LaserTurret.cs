@@ -10,8 +10,6 @@ public class LaserTurret : InitData {
 	private LineRenderer laserLine;
 
 	private RaycastHit hit;
-	//temp
-	public Transform targ;
 
 	private void Start()
 	{
@@ -22,19 +20,7 @@ public class LaserTurret : InitData {
 		InputManager.LaserFire = Fire;
 	}
 	
-	private void Update()
-	{
-		rotator.LookAt(targ);
-		if (targ != null && Time.time > nextFire)
-		{
-			nextFire = Time.time + fireRate;
-			Fire();
-		}
-
-		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
-	}
-
-	private void Fire()
+	public override void Fire()
 	{
 		if (Physics.Raycast(rotator.position, UtilityFunctions.randomizeShot(rotator), out hit, 50.0f))
 		{

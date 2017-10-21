@@ -10,27 +10,13 @@ public class ObstTurret : InitData {
 	[SerializeField]
 	private Transform obstSpawn;
 
-	//temp
-	public Transform targ;
-
 	private void Start()
 	{
 		// tie a function with inputmanager's delegate
 		InputManager.ObstBoxFire = Fire;
 	}
 	
-	// Update is called once per frame
-	private void Update()
-	{
-		rotator.LookAt(targ);
-		if (targ != null && Time.time > nextFire)
-		{
-			nextFire = Time.time + fireRate;
-			Fire();
-		}
-	}
-
-	private void Fire()
+	public override void Fire()
 	{
 		// instantiate the prefab
 		GameObject obstacle = Instantiate(obstPrefab, obstSpawn.position, obstSpawn.rotation);
