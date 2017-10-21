@@ -6,10 +6,12 @@ public class LaserTurret : InitData {
 
 	[SerializeField]
 	private Transform laserEmit;
-	[SerializeField]
+
 	private LineRenderer laserLine;
 
 	private RaycastHit hit;
+
+	private WaitForSeconds duration = new WaitForSeconds(0.08f);
 
 	private void Start()
 	{
@@ -22,13 +24,23 @@ public class LaserTurret : InitData {
 	
 	public override void Fire()
 	{
-		if (Physics.Raycast(rotator.position, UtilityFunctions.randomizeShot(rotator), out hit, 50.0f))
+		laserLine.SetPosition(0, laserEmit.position);
+		if (Physics.Raycast(laserEmit.position, UtilityFunctions.randomizeShot(laserEmit), out hit, 50.0f))
 		{
+			laserLine.SetPosition(1, hit.point);
+			StartCoroutine(laserRay());
 			Debug.Log(hit.collider.name);
 			if (hit.collider.GetComponent<Rigidbody>())
 			{
 				Destroy(hit.collider.gameObject);
 			}
 		}
+	}
+
+	private IEnumerator laserRay()
+	{
+		laserLine.enabled = true;
+		yield return duration;
+		laserLine.enabled = false;
 	}
 }
