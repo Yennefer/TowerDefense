@@ -203,6 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 54809435}
   - component: {fileID: 54809436}
+  - component: {fileID: 54809437}
   m_Layer: 0
   m_Name: rotator
   m_TagString: Untagged
@@ -238,6 +239,18 @@ MonoBehaviour:
   laserEmit: {fileID: 519548878}
   laserLine: {fileID: 0}
   targ: {fileID: 867053621}
+--- !u!135 &54809437
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 54809434}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: -1.25, z: 0}
 --- !u!1001 &185695639
 Prefab:
   m_ObjectHideFlags: 0
@@ -442,7 +455,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 328510187}
-  - component: {fileID: 328510186}
   m_Layer: 0
   m_Name: LaserTurret
   m_TagString: Untagged
@@ -450,18 +462,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &328510186
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 328510185}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 12
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &328510187
 Transform:
   m_ObjectHideFlags: 0
@@ -663,7 +663,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 652143380}
-  - component: {fileID: 652143379}
   m_Layer: 0
   m_Name: BombTurret
   m_TagString: Untagged
@@ -671,18 +670,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &652143379
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 652143378}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 12
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &652143380
 Transform:
   m_ObjectHideFlags: 0
@@ -1050,6 +1037,7 @@ GameObject:
   m_Component:
   - component: {fileID: 862398809}
   - component: {fileID: 862398810}
+  - component: {fileID: 862398811}
   m_Layer: 0
   m_Name: rotator
   m_TagString: Untagged
@@ -1085,6 +1073,18 @@ MonoBehaviour:
   obstPrefab: {fileID: 1101190096250696, guid: 5117bf241a6572848b7e416cdd16fe28, type: 2}
   obstSpawn: {fileID: 772448539}
   targ: {fileID: 867053621}
+--- !u!135 &862398811
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 862398808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: -1.25, z: 0}
 --- !u!1001 &867053620
 Prefab:
   m_ObjectHideFlags: 0
@@ -1499,7 +1499,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1340698138}
-  - component: {fileID: 1340698137}
   m_Layer: 0
   m_Name: ObstBoxTurret
   m_TagString: Untagged
@@ -1507,18 +1506,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &1340698137
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340698136}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 12
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1340698138
 Transform:
   m_ObjectHideFlags: 0
@@ -1603,6 +1590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1442842825}
   - component: {fileID: 1442842826}
+  - component: {fileID: 1442842827}
   m_Layer: 0
   m_Name: rotator
   m_TagString: Untagged
@@ -1638,6 +1626,18 @@ MonoBehaviour:
   bombPrefab: {fileID: 1557685379066916, guid: fb9a2cc6599d04e43876e4495ddae76f, type: 2}
   bombSpawn: {fileID: 1632504740}
   targ: {fileID: 867053621}
+--- !u!135 &1442842827
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1442842824}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12
+  m_Center: {x: 0, y: -1.25, z: 0}
 --- !u!1 &1520679546
 GameObject:
   m_ObjectHideFlags: 0

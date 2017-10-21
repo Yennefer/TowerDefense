@@ -23,6 +23,11 @@ public class ObstTurret : InitData {
 	private void Update()
 	{
 		rotator.LookAt(targ);
+		if (targ != null && Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			Fire();
+		}
 	}
 
 	private void Fire()

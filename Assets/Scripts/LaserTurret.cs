@@ -25,6 +25,11 @@ public class LaserTurret : InitData {
 	private void Update()
 	{
 		rotator.LookAt(targ);
+		if (targ != null && Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			Fire();
+		}
 
 		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
 	}
@@ -34,8 +39,10 @@ public class LaserTurret : InitData {
 		if (Physics.Raycast(rotator.position, UtilityFunctions.randomizeShot(rotator), out hit, 50.0f))
 		{
 			Debug.Log(hit.collider.name);
-			if (hit.collider.GetComponent<Rigidbody>()) 
-			Destroy(hit.collider.gameObject);
+			if (hit.collider.GetComponent<Rigidbody>())
+			{
+				Destroy(hit.collider.gameObject);
+			}
 		}
 	}
 }
