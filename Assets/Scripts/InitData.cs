@@ -6,22 +6,36 @@ public class InitData : MonoBehaviour {
 
 	protected Transform rotator;
 
-	protected float fireRate = 1.5f;
+	protected float fireRate = 10.5f;
 
 	protected float nextFire;
 
 	protected Transform targ;
+
+	protected bool stillFiring = false;
+
+	protected Queue<GameObject> targets;
 	
 	private void Awake()
 	{
 		// get turret's rotator
 		rotator = GetComponent<Transform>();
+
+		//init the queue
+		targets = new Queue<GameObject>();
 	}
 
 	protected void Update()
 	{
-		if (targ == null)
+		if (targets.Count > 0 && !stillFiring)
 		{
+			//targ = (targets.ToArray()[0].gameObject != null) ? targets.Dequeue().transform : null;
+			targ = targets.Dequeue().transform;
+			stillFiring = true;
+		}
+		else if (targ == null)
+		{
+			stillFiring = false;
 			rotator.Rotate(0, 0.5f, 0);
 		}
 		else
@@ -45,8 +59,9 @@ public class InitData : MonoBehaviour {
 	{
 		if (!other.CompareTag("Shell"))
 		{
-			targ = other.transform;
+			targets.Enqueue(other.gameObject);
 			Debug.Log(other.gameObject.name);
+			Debug.Log(targets.Count);
 		}
 	}
 
@@ -54,8 +69,15 @@ public class InitData : MonoBehaviour {
 	{
 		if (!other.CompareTag("Shell"))
 		{
-			targ = null;
+			if (targets.Contains(other.gameObject))
+			{
+				targets.Dequeue();
+			}
+			else
+			{
+				targ = null;
+			}
 			Debug.Log(other.gameObject.name);
 		}
-	}	
+	}
 }
