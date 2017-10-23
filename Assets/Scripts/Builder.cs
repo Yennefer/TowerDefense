@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/*
+	Builder instantiate object from "prefabsToBuild" array
+	when prefub is selected from a menu
+ */
 public class Builder : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject[] prefabsToBuild;
 
-	private UnityAction onPrefabSelected;
+	private UnityAction prefabBuildListener;
 	
 	public void Awake() {
-		onPrefabSelected = BuildPrefab;
+		prefabBuildListener = BuildPrefab;
+	}
+
+	public void OnEnable() {
+		EventManager.RegisterListener(Events.buildPrefub.ToString(), prefabBuildListener);
+	}
+
+	public void OnDisable() {
+		EventManager.UnregisterListener(Events.buildPrefub.ToString(), prefabBuildListener);
 	}
 
 	public void OnMouseDown () {
-		Debug.Log("Clicked on " + gameObject.name);
-
-		EventManager.RegisterListener("", onPrefabSelected);
+		EventManager.TriggerEvent(Events.selectPrefub.ToString());
 	}
 
-	private BuildPrefab() {
-
+	private void BuildPrefab() {
+		Instantiate(prefabsToBuild[0], transform.position, Quaternion.identity);
+		Destroy(gameObject);
 	}
 }
