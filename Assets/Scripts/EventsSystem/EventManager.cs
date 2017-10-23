@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/*
+	EventManager can invoke events and register listener for this events 
+ */
 public class EventManager : MonoBehaviour {
 
 	private Dictionary<string, UnityEvent> eventDictionary;
@@ -12,11 +15,11 @@ public class EventManager : MonoBehaviour {
 	
 	public static EventManager instance {
 		get {
-			if (eventManager != null) {
-				eventManager = FindObjectOfType(typeof (EventManager)) as EventManager;
+			if (!eventManager) {
+				eventManager = (EventManager) FindObjectOfType (typeof (EventManager));
 
 				if (eventManager != null) {
-					Debug.LogError ("There needs to be one active EventManagher script on a GameObject in your scene.");
+					Debug.LogError ("There needs to be one active EventManager script on a GameObject in your scene.");
 				} else {
 					eventManager.Init();
 				}
