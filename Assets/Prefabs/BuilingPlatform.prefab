@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33122743552650830}
   - component: {fileID: 136291275572539916}
   - component: {fileID: 23942515801104812}
-  - component: {fileID: 114737334630638500}
+  - component: {fileID: 114404539601773538}
   m_Layer: 0
   m_Name: BuilingPlatform
   m_TagString: Untagged
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1252012083342988}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.7, y: 0.5, z: 36.4}
+  m_LocalPosition: {x: 2.4533844, y: 0.49999237, z: 5.783264}
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1252012083342988}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114737334630638500
+--- !u!114 &114404539601773538
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
