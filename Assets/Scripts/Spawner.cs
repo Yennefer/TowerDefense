@@ -30,8 +30,8 @@ public class Spawner : MonoBehaviour {
     private void Spawn() {
 		if (currentObjectIndex < prefabsToSpawn.Length) {
 			timer.StopTimer();
-			GameObject enemy = Instantiate(prefabsToSpawn[currentObjectIndex], transform.position, Quaternion.identity);
-			enemy.transform.parent = gameObject.transform;
+			GameObject spawnObject = Instantiate(prefabsToSpawn[currentObjectIndex], transform.position, Quaternion.identity);
+			spawnObject.transform.parent = gameObject.transform;
 			currentObjectIndex++;
 			timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 		} else {
