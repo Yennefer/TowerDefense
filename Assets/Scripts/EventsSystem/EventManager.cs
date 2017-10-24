@@ -15,10 +15,10 @@ public class EventManager : MonoBehaviour {
 	
 	public static EventManager instance {
 		get {
-			if (!eventManager) {
+			if (eventManager == null) {
 				eventManager = (EventManager) FindObjectOfType (typeof (EventManager));
 
-				if (eventManager != null) {
+				if (eventManager == null) {
 					Debug.LogError ("There needs to be one active EventManager script on a GameObject in your scene.");
 				} else {
 					eventManager.Init();
