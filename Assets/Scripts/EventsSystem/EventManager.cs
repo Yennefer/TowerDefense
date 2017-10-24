@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public class GameEvent : UnityEvent<GameObject> {
+	public GameEvent() {
+	}
+}
+
 /*
 	EventManager can invoke events and register listener for this events 
  */
 public class EventManager : MonoBehaviour {
 
-	private Dictionary<string, UnityEvent> eventDictionary;
+	private Dictionary<string, GameEvent> eventDictionary;
 	private static EventManager eventManager;
 
 	protected EventManager() {}
@@ -30,36 +35,36 @@ public class EventManager : MonoBehaviour {
 
 	private void Init() {
 		if (eventDictionary == null) {
-			eventDictionary = new Dictionary<string, UnityEvent>();
+			eventDictionary = new Dictionary<string, GameEvent>();
 		}
 	}
 
-	public static void RegisterListener (string eventName, UnityAction listener) {
-		UnityEvent thisEvent = null;
+	public static void RegisterListener (string eventName, UnityAction<GameObject> listener) {
+		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
 			thisEvent.AddListener(listener);
 		} else {
-			thisEvent = new UnityEvent();
+			thisEvent = new GameEvent();
 			thisEvent.AddListener(listener);
 			instance.eventDictionary.Add(eventName, thisEvent);
 		}
 	}
 
-	public static void UnregisterListener (string eventName, UnityAction listener) {
+	public static void UnregisterListener (string eventName, UnityAction<GameObject> listener) {
 		if (eventManager == null) {
 			return;
 		}
 
-		UnityEvent thisEvent = null;
+		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
 			thisEvent.RemoveListener(listener);
 		}
 	}
 
-	public static void TriggerEvent(string eventName) {
-		UnityEvent thisEvent = null;
+	public static void TriggerEvent(string eventName, GameObject message) {
+		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
-			thisEvent.Invoke();
+			thisEvent.Invoke(message);
 		}
 	}
 }
