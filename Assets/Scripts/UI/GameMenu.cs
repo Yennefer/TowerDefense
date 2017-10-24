@@ -7,12 +7,15 @@ using UnityEngine.Events;
 public class GameMenu : MonoBehaviour {
 
 	[SerializeField]
-	private Button selectButton;
+	private GameObject menuButtons;
+	[SerializeField]
+	private Button buttonPrefab;
 
-	private UnityAction builderListener;
+	private string builderId;
+
+	private UnityAction<GameObject> builderListener;
 	
 	public void Awake() {
-		selectButton.onClick.AddListener(SelectClick);
 		builderListener = SelectPrefub;
 	}
 
@@ -24,12 +27,34 @@ public class GameMenu : MonoBehaviour {
 		EventManager.UnregisterListener(Events.selectPrefub.ToString(), builderListener);
 	}
 
-	public void SelectClick () {
-		selectButton.gameObject.SetActive(false);
-		EventManager.TriggerEvent(Events.buildPrefub.ToString());
+	public void SelectClick (GameObject prefab) {
+		menuButtons.gameObject.SetActive(false);
+		EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, prefab);
 	}
 
-	private void SelectPrefub() {
-		selectButton.gameObject.SetActive(true);
+	private void SelectPrefub(GameObject builder) {
+		Builder builderObj = builder.GetComponent<Builder>();
+		builderId = builderObj.GetId(); 
+		CreateMenu(builderObj.GetPrefabsToBuild());
+		menuButtons.gameObject.SetActive(true);
+	}
+
+	private void CreateMenu(GameObject[] prefubs) {
+		ClearMenu();
+		for (int i = 0; i < prefubs.Length; i++) {
+			GameObject prefab = prefubs[i];
+			Button button = Instantiate(buttonPrefab);
+            button.transform.SetParent(menuButtons.transform, false);
+            button.transform.localScale = new Vector3(1, 1, 1);
+			button.transform.position = new Vector3(Screen.width / 2, Screen.height / 2 - i * 50, 0);
+			button.GetComponentInChildren<Text>().text = prefab.name;
+            button.onClick.AddListener(() => SelectClick(prefab));
+		}
+	}
+
+	private void ClearMenu() {
+		foreach (Transform button in menuButtons.transform) {
+    		GameObject.Destroy(button.gameObject);
+		}
 	}
 }
