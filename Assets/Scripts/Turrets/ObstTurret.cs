@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ObstTurret : InitData {
+public class ObstTurret : BaseTurret {
 
 	[SerializeField]
 	private GameObject obstPrefab;
@@ -16,7 +16,7 @@ public class ObstTurret : InitData {
 		InputManager.ObstBoxFire = Fire;
 	}
 	
-	public override void Fire()
+	protected override void Fire()
 	{
 		// instantiate the prefab
 		GameObject obstacle = Instantiate(obstPrefab, obstSpawn.position, obstSpawn.rotation);

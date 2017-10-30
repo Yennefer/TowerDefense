@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour {
 	private int health = 100;
 
 	public void Hit(int damage) {
+		Debug.Log(gameObject.name + ": Hit");
+
 		health -= damage;
 
 		if (health <= 0) {
@@ -24,4 +26,10 @@ public class Enemy : MonoBehaviour {
 	private void UpdateHealth() {
 		// Show and update health bar
 	}
+
+	// void OnCollisionEnter (Collision col)
+    // {
+	// 	Debug.Log(gameObject.name + ": OnCollisionEnter");
+    //     //Destroy(col.gameObject);
+    // }
 }

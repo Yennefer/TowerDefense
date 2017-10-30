@@ -6,7 +6,6 @@ public class BombEffect : MonoBehaviour {
 
 	[SerializeField]
 	private float radius;
-
 	[SerializeField]
 	private float power;
 

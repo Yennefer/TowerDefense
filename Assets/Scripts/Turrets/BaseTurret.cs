@@ -2,18 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InitData : MonoBehaviour {
+public class BaseTurret : MonoBehaviour {
 
 	protected Transform rotator;
-
 	protected float fireRate = 10.5f;
-
 	protected float nextFire;
-
 	protected Transform targ;
-
 	protected bool stillFiring = false;
-
 	protected Queue<GameObject> targets;
 	
 	private void Awake()
@@ -50,9 +45,9 @@ public class InitData : MonoBehaviour {
 		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
 	}
 
-	public virtual void Fire()
+	protected virtual void Fire()
 	{
-		Debug.Log("Firing!");
+		Debug.Log(gameObject.name + ": " + "firing at " + targ.gameObject.name);
 	}
 
 	protected void OnTriggerEnter(Collider other)
@@ -60,8 +55,7 @@ public class InitData : MonoBehaviour {
 		if (!other.CompareTag("Shell"))
 		{
 			targets.Enqueue(other.gameObject);
-			Debug.Log(other.gameObject.name);
-			Debug.Log(targets.Count);
+			Debug.Log(gameObject.name + ": " + other.gameObject.name + " got in range. Target count = " + targets.Count);
 		}
 	}
 
@@ -77,7 +71,7 @@ public class InitData : MonoBehaviour {
 			{
 				targ = null;
 			}
-			Debug.Log(other.gameObject.name);
+			Debug.Log(gameObject.name + ": " + other.gameObject.name + " leaved range. Target count = " + targets.Count);
 		}
 	}
 }

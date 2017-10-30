@@ -204,7 +204,7 @@ GameObject:
   - component: {fileID: 195870497684435030}
   - component: {fileID: 114342263004920298}
   - component: {fileID: 54971779002473480}
-  - component: {fileID: 136111445436916048}
+  - component: {fileID: 136140871430295620}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -851,8 +851,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225203621667266}
-  m_LocalRotation: {x: -0, y: -0.89639616, z: -0, w: 0.44325376}
-  m_LocalPosition: {x: 29.3, y: 0, z: -115.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 37.67038, y: 0, z: -23.813019}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4991909057049160}
@@ -863,7 +863,7 @@ Transform:
   - {fileID: 4831047862025782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -127.37701, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4157936701249260
 Transform:
   m_ObjectHideFlags: 1
@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4709450660295102, guid: 6898bc6488c166343873a5d324f40030, type: 2}
---- !u!136 &136111445436916048
+--- !u!136 &136140871430295620
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

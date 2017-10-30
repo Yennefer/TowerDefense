@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombTurret : InitData {
+public class BombTurret : BaseTurret {
 
 	[SerializeField]
 	private GameObject bombPrefab;
@@ -15,7 +15,7 @@ public class BombTurret : InitData {
 		InputManager.BombFire = Fire;
 	}
 	
-	public override void Fire()
+	protected override void Fire()
 	{
 		// instantiate the prefab
 		GameObject bomb = Instantiate(bombPrefab, bombSpawn.position, bombSpawn.rotation);
