@@ -10,13 +10,7 @@ public class ObstTurret : BaseTurret {
 	[SerializeField]
 	private Transform obstSpawn;
 
-	private void Start()
-	{
-		// tie a function with inputmanager's delegate
-		InputManager.ObstBoxFire = Fire;
-	}
-	
-	protected override void Fire()
+	protected override void Fire(Enemy enemy)
 	{
 		// instantiate the prefab
 		GameObject obstacle = Instantiate(obstPrefab, obstSpawn.position, obstSpawn.rotation);

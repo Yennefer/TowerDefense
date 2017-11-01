@@ -390,6 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 718e2435430e8804e8fb87ff0e3605d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0.5
+  range: 20
   obstPrefab: {fileID: 1101190096250696, guid: 5117bf241a6572848b7e416cdd16fe28, type: 2}
   obstSpawn: {fileID: 4488782483024006}
 --- !u!135 &135043966841677368

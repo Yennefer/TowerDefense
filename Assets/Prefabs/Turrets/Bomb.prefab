@@ -109,8 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6a93d137f58fd479a78d0ace6904e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  power: 5
+  radius: 10
+  power: 10
+  damage: 20
 --- !u!135 &135906517896006390
 SphereCollider:
   m_ObjectHideFlags: 1

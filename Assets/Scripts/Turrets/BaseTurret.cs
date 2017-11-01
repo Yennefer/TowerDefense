@@ -4,73 +4,66 @@ using UnityEngine;
 
 public class BaseTurret : MonoBehaviour {
 
-	protected Transform rotator;
-	protected float fireRate = 10.5f;
-	protected float nextFire;
-	protected Transform targ;
-	protected bool stillFiring = false;
-	protected Queue<GameObject> targets;
+	[SerializeField]
+	private float fireRate = 0.5f;
+	[SerializeField]
+	private float range = 15f;
+
+	private Transform rotator;
+	private float nextFireTime;
+	private LinkedList<Enemy> targets;
 	
 	private void Awake()
 	{
 		// get turret's rotator
 		rotator = GetComponent<Transform>();
 
-		//init the queue
-		targets = new Queue<GameObject>();
+		// init enemy list
+		targets = new LinkedList<Enemy>();
+
+		// setting up enemy detection radius
+		GetComponent<SphereCollider>().radius = range;
 	}
 
-	protected void Update()
+	private void Update()
 	{
-		if (targets.Count > 0 && !stillFiring)
+		if (targets.Count > 0)
 		{
-			//targ = (targets.ToArray()[0].gameObject != null) ? targets.Dequeue().transform : null;
-			targ = targets.Dequeue().transform;
-			stillFiring = true;
-		}
-		else if (targ == null)
-		{
-			stillFiring = false;
-			rotator.Rotate(0, 0.5f, 0);
+			Enemy target = targets.First.Value;
+			rotator.LookAt(target.transform);
+			if (Time.time > nextFireTime)
+			{
+				nextFireTime = Time.time + fireRate;
+				Fire(target);
+			}
 		}
 		else
 		{
-			rotator.LookAt(targ);
-			if (Time.time > nextFire)
-			{
-				nextFire = Time.time + fireRate;
-				Fire();
-			}
+			rotator.Rotate(0, 0.5f, 0);
 		}
 		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
 	}
 
-	protected virtual void Fire()
+	protected virtual void Fire(Enemy enemy) 
 	{
-		Debug.Log(gameObject.name + ": " + "firing at " + targ.gameObject.name);
 	}
 
-	protected void OnTriggerEnter(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
-		if (!other.CompareTag("Shell"))
+		Enemy enemy = other.gameObject.GetComponent<Enemy>();
+		if (enemy != null)
 		{
-			targets.Enqueue(other.gameObject);
+			targets.AddLast(enemy);
 			Debug.Log(gameObject.name + ": " + other.gameObject.name + " got in range. Target count = " + targets.Count);
 		}
 	}
 
-	protected void OnTriggerExit(Collider other)
+	private void OnTriggerExit(Collider other)
 	{
-		if (!other.CompareTag("Shell"))
+		Enemy enemy = other.gameObject.GetComponent<Enemy>();
+		if (enemy != null)
 		{
-			if (targets.Contains(other.gameObject))
-			{
-				targets.Dequeue();
-			}
-			else
-			{
-				targ = null;
-			}
+			targets.Remove(enemy);
 			Debug.Log(gameObject.name + ": " + other.gameObject.name + " leaved range. Target count = " + targets.Count);
 		}
 	}
