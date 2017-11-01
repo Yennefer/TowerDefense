@@ -1,44 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LaserTurret : BaseTurret {
 
 	[SerializeField]
 	private Transform laserEmit;
+	[SerializeField]
+	private float laserDuration = 0.08f;
+	[SerializeField]
+	private int damage = 10;
 
 	private LineRenderer laserLine;
-	private RaycastHit hit;
-	private WaitForSeconds duration = new WaitForSeconds(0.08f);
+	private Timer timer;
+	private UnityAction hideRayAction;
 
 	private void Start()
 	{
 		// get linerenderer
 		laserLine = GetComponent<LineRenderer>();
+		laserLine.SetPosition(0, laserEmit.position);
 
-		// tie a function with inputmanager's delegate
-		InputManager.LaserFire = Fire;
+		hideRayAction += HideRayWithTimer;
+		timer = Timer.AddAsComponent(gameObject, hideRayAction);
 	}
 	
-	protected override void Fire()
+	protected override void Fire(Enemy enemy)
 	{
-		laserLine.SetPosition(0, laserEmit.position);
-		if (Physics.Raycast(laserEmit.position, UtilityFunctions.randomizeShot(laserEmit), out hit, 50.0f))
-		{
-			laserLine.SetPosition(1, hit.point);
-			StartCoroutine(laserRay());
-			Debug.Log(gameObject.name + ": " + "hit " + hit.collider.name);
-			if (hit.collider.GetComponent<Rigidbody>())
-			{
-				Destroy(hit.collider.gameObject);
-			}
-		}
+		DrawRayTo(enemy.transform.position);
+		enemy.Hit(damage);
 	}
 
-	private IEnumerator laserRay()
+	private void DrawRayTo(Vector3 position)
 	{
+		laserLine.SetPosition(1, position);
 		laserLine.enabled = true;
-		yield return duration;
+		timer.StartTimer(laserDuration);
+	}
+
+	private void HideRayWithTimer()
+	{
 		laserLine.enabled = false;
+		timer.StopTimer();
 	}
 }

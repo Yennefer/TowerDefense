@@ -391,7 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c869081363b8ef45b61d80ec6a65a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0.5
+  range: 20
   laserEmit: {fileID: 4354685685187394}
+  laserDuration: 0.1
+  damage: 5
 --- !u!120 &120218897599419328
 LineRenderer:
   m_ObjectHideFlags: 1

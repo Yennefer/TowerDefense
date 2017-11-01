@@ -10,6 +10,6 @@ public class UtilityFunctions
 		
 		float rndz = Random.Range(-0.1f, 0.1f);
 
-		return (trans.forward + new Vector3(rndx, 0, rndz));
+		return (trans.forward + new Vector3(0, 0, 0));
 	}
 }
