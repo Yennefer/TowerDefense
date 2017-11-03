@@ -27,14 +27,14 @@ public class BaseTurret : MonoBehaviour {
 
 	private void Update()
 	{
-		if (targets.Count > 0)
+		Enemy enemy = null;
+		if (HasNotNullTarget(out enemy))
 		{
-			Enemy target = targets.First.Value;
-			rotator.LookAt(target.transform);
+			rotator.LookAt(enemy.transform);
 			if (Time.time > nextFireTime)
 			{
 				nextFireTime = Time.time + fireRate;
-				Fire(target);
+				Fire(enemy);
 			}
 		}
 		else
@@ -66,5 +66,22 @@ public class BaseTurret : MonoBehaviour {
 			targets.Remove(enemy);
 			Debug.Log(gameObject.name + ": " + other.gameObject.name + " leaved range. Target count = " + targets.Count);
 		}
+	}
+
+	// We need this method because some of the targets in the list 
+	// can be destroyed before leaving turrets range of fire (if a target was killed, for example)
+	private bool HasNotNullTarget(out Enemy target) {
+		target = null;
+		if (targets.Count == 0) {
+			return false;
+		}
+
+		target = targets.First.Value;
+		if (target == null) {
+			targets.RemoveFirst();
+			return HasNotNullTarget(out target);
+		}
+
+		return true;
 	}
 }

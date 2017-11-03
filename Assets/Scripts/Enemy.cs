@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour {
 
 	private void Die() {
 		// Show dying animation
-		// Destroy(gameObject);
+		Destroy(gameObject);
 	}
 
 	private void UpdateHealth() {
