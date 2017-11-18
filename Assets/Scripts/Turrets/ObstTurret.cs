@@ -9,6 +9,17 @@ public class ObstTurret : BaseTurret {
 	private GameObject obstPrefab;
 	[SerializeField]
 	private Transform obstSpawn;
+	protected int boxStrength;
+	private float boxLifeTime;
+
+	private void Start()
+	{
+		// get settings for obstacle turret
+		ExtractSettings(settings);
+
+		// setting up enemy detection radius
+		GetComponent<SphereCollider>().radius = range;
+	}
 
 	protected override void Fire(Enemy enemy)
 	{
@@ -22,6 +33,14 @@ public class ObstTurret : BaseTurret {
 		obstacle.transform.DOScale(2, 3);
 
 		// destroy bomb after the time specified. Will be changed.
-		Destroy(obstacle, 4.0f);
+		Destroy(obstacle, boxLifeTime);
+	}
+
+	protected override void ExtractSettings(TurretSettings settings)
+	{
+		fireRate = settings.otSettings.fireRate;
+		range = settings.otSettings.range;
+		boxStrength = settings.otSettings.boxStrength;
+		boxLifeTime = settings.otSettings.boxLifeTime;
 	}
 }
