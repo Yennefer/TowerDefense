@@ -22,7 +22,6 @@ public class Timer : MonoBehaviour {
 	}
 
 	public void StartTimer(float timePeriod) {
-		ticking = false;
 		this.timePeriod = timePeriod;
 		this.timeLeft = timePeriod;
 		ticking = true;
@@ -30,6 +29,13 @@ public class Timer : MonoBehaviour {
 
 	public void StopTimer() {
 		ticking = false;
+	}
+
+	public void RestartTimer(float timePeriod) {
+		if (ticking) {
+			this.timePeriod = timePeriod;
+			this.timeLeft = timePeriod;
+		}
 	}
 
 	private void Init(UnityAction callback) {
@@ -44,5 +50,9 @@ public class Timer : MonoBehaviour {
 				timeLeft = timePeriod;
     		}
 		}
+	}
+
+	public bool IsTicking() {
+		return ticking;
 	}
 }

@@ -11,31 +11,43 @@ using UnityEngine.Events;
 public class Spawner : MonoBehaviour {
 
 	[SerializeField]
-	private GameObject[] prefabsToSpawn;
-	[SerializeField]
 	private float minSpawnTimePeriod;
 	[SerializeField]
 	private float maxSpawnTimePeriod;
 
 	private Timer timer;
 	private UnityAction spawnAction;
-	private int currentObjectIndex = 0;
+	List<GameObject> prefabsToSpawn = new List<GameObject>();
 
-	public void Start() {
+	private void Start() {
 		spawnAction += Spawn;
 		timer = Timer.AddAsComponent(gameObject, spawnAction);
-		timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 	}
 
     private void Spawn() {
-		if (currentObjectIndex < prefabsToSpawn.Length) {
-			timer.StopTimer();
-			GameObject spawnObject = Instantiate(prefabsToSpawn[currentObjectIndex], transform.position, Quaternion.identity);
+		if (prefabsToSpawn.Count > 0) {
+			GameObject spawnObject = Instantiate(GetRandomObjectToSpawn(), transform.position, Quaternion.identity);
 			spawnObject.transform.parent = gameObject.transform;
-			currentObjectIndex++;
-			timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
+			timer.RestartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 		} else {
 			timer.StopTimer();
 		}
+	}
+
+	private GameObject GetRandomObjectToSpawn() {
+		int randomIndex = Random.Range(0, prefabsToSpawn.Count);
+		GameObject objectToSpawn = prefabsToSpawn[randomIndex];
+		prefabsToSpawn.RemoveAt(randomIndex);
+		return objectToSpawn;
+	}
+	
+	public void AddObjectsToSpawn(GameObject prefabToSpawn, int objectsCount) {
+		for (int i = 0; i < objectsCount; i++) {
+			prefabsToSpawn.Add(prefabToSpawn);
+		}
+	}
+
+	public void StartSpawn() {
+		timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 	}
 }
