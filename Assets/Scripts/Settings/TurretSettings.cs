@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-[CreateAssetMenu(fileName = "Turrets", menuName = "Settings/Turrets", order =1)]
+[CreateAssetMenu(fileName = "Turrets", menuName = "Settings/Turrets", order = 1)]
 public class TurretSettings : ScriptableObject
 {
 	public BTSettings btSettings;
