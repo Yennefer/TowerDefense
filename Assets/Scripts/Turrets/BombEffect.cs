@@ -9,8 +9,8 @@ public class BombEffect : MonoBehaviour {
 	private float radius;
 	[SerializeField]
 	private float power;
-	[SerializeField]
-	private int damage = 20;
+	private int damage;
+	public int dmg { set { damage = value; }}
 
 	private void OnCollisionEnter(Collision other)
 	{

@@ -8,7 +8,7 @@ public class BombTurret : BaseTurret {
 	private GameObject bombPrefab;
 	[SerializeField]
 	private Transform bombSpawn;
-	protected int damage;
+	private int damage;
 	
 	private void Start()
 	{
@@ -24,7 +24,10 @@ public class BombTurret : BaseTurret {
 		GameObject bomb = Instantiate(bombPrefab, bombSpawn.position, bombSpawn.rotation);
 
 		// add velocity vector
-		bomb.GetComponent<Rigidbody>().velocity = UtilityFunctions.randomizeShot(bombSpawn) * 50;
+		bomb.GetComponent<Rigidbody>().velocity = UtilityFunctions.RandomizeShot(bombSpawn) * flySpeed;
+
+		// set bomb's damage value
+		bomb.GetComponent<BombEffect>().dmg = damage;
 	}
 
 	protected override void ExtractSettings(TurretSettings settings)
@@ -32,5 +35,6 @@ public class BombTurret : BaseTurret {
 		fireRate = settings.btSettings.fireRate;
 		range = settings.btSettings.range;
 		damage = settings.btSettings.damage;
+		flySpeed = settings.btSettings.bombFlySpeed;
 	}
 }

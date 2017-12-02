@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UtilityFunctions
 {
-	public static Vector3 randomizeShot(Transform trans)
+	public static Vector3 RandomizeShot(Transform trans)
 	{
 		float rndx = Random.Range(-0.1f, 0.1f);
 		
