@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class BaseTurret : MonoBehaviour {
 
-	[SerializeField]
-	private float fireRate = 0.5f;
-	[SerializeField]
-	private float range = 15f;
-
+	protected float fireRate;
+	protected float range;
+	protected int flySpeed;
 	private Transform rotator;
 	private float nextFireTime;
 	private LinkedList<Enemy> targets;
+	protected TurretSettings settings;
 	
 	private void Awake()
 	{
+		// load scriptableobject from assets
+		settings = Resources.Load("Turrets") as TurretSettings;
+
 		// get turret's rotator
 		rotator = GetComponent<Transform>();
 
 		// init enemy list
 		targets = new LinkedList<Enemy>();
-
-		// setting up enemy detection radius
-		GetComponent<SphereCollider>().radius = range;
 	}
 
 	private void Update()
@@ -45,6 +44,10 @@ public class BaseTurret : MonoBehaviour {
 	}
 
 	protected virtual void Fire(Enemy enemy) 
+	{
+	}
+
+	protected virtual void ExtractSettings(TurretSettings settings)
 	{
 	}
 
