@@ -11,5 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a88ccc6e471d2345941be20ae715aa0, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  gameScene: 0
-  levels: []
+  gameScene: 1
+  levels:
+  - {fileID: 11400000, guid: 3f6efabef0e0ea9448e33ab0cca79fe1, type: 2}
+  - {fileID: 11400000, guid: fe79d7e38de3ccd46835f1ab46f58e05, type: 2}
+  - {fileID: 11400000, guid: 0ea3adbf17a2cd741aa5261182edf2bb, type: 2}
+  turrets: {fileID: 11400000, guid: 51daa824e7a808d418d28cc3f0b56f44, type: 2}

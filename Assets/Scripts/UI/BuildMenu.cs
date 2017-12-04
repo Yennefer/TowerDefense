@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class GameMenu : MonoBehaviour {
+public class BuildMenu : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject menuButtons;
@@ -33,9 +33,9 @@ public class GameMenu : MonoBehaviour {
 	}
 
 	private void SelectPrefub(GameObject builder) {
-		Builder builderObj = builder.GetComponent<Builder>();
+		TurretsBuilder builderObj = builder.GetComponent<TurretsBuilder>();
 		builderId = builderObj.GetId(); 
-		CreateMenu(builderObj.GetPrefabsToBuild());
+		CreateMenu(builderObj.GetTurretsToBuild());
 		menuButtons.gameObject.SetActive(true);
 	}
 

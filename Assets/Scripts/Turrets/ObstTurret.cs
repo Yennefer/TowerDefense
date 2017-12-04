@@ -14,9 +14,6 @@ public class ObstTurret : BaseTurret {
 
 	private void Start()
 	{
-		// get settings for obstacle turret
-		ExtractSettings(settings);
-
 		// setting up enemy detection radius
 		GetComponent<SphereCollider>().radius = range;
 	}

@@ -15,6 +15,7 @@ public class TurretSettings : ScriptableObject
 public class BTSettings
 {
 	public string name = "BombTurret";
+	public GameObject prefab;
 	[Range(0, 10)]
 	public float fireRate;
 	[Range(5, 20)]
@@ -29,6 +30,7 @@ public class BTSettings
 public class LTSettings
 {
 	public string name = "LaserTurret";
+	public GameObject prefab;
 	[Range(0, 10)]
 	public float fireRate;
 	[Range(5, 20)]
@@ -43,6 +45,7 @@ public class LTSettings
 public class OTSettings
 {
 	public string name = "ObstTurret";
+	public GameObject prefab;
 	[Range(0, 10)]
 	public float fireRate;
 	[Range(5, 20)]

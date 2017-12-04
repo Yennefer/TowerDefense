@@ -10,13 +10,9 @@ public class BaseTurret : MonoBehaviour {
 	private Transform rotator;
 	private float nextFireTime;
 	private LinkedList<Enemy> targets;
-	protected TurretSettings settings;
-	
+
 	private void Awake()
 	{
-		// load scriptableobject from assets
-		settings = Resources.Load("Turrets") as TurretSettings;
-
 		// get turret's rotator
 		rotator = GetComponent<Transform>();
 
@@ -41,6 +37,10 @@ public class BaseTurret : MonoBehaviour {
 			rotator.Rotate(0, 0.5f, 0);
 		}
 		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
+	}
+
+	public void Init(TurretSettings settings) {
+		ExtractSettings(settings);
 	}
 
 	protected virtual void Fire(Enemy enemy) 

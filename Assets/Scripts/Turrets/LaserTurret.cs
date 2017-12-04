@@ -14,9 +14,6 @@ public class LaserTurret : BaseTurret {
 
 	private void Start()
 	{
-		// get settings for laser turret
-		ExtractSettings(settings);
-
 		// setting up enemy detection radius
 		GetComponent<SphereCollider>().radius = range;
 

@@ -12,12 +12,10 @@ public class BombTurret : BaseTurret {
 	
 	private void Start()
 	{
-		// get settings for bomb turret
-		ExtractSettings(settings);
-
 		// setting up enemy detection radius
 		GetComponent<SphereCollider>().radius = range;
 	}
+
 	protected override void Fire(Enemy enemy)
 	{
 		// instantiate the prefab

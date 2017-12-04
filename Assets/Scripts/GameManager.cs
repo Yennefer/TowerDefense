@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 	[SerializeField]
 	private GameObject level;
 	
-	private Enums.Map sceneName;
+	private Enums.Scene sceneName;
 	private List<LevelSettings> levels;
 
 	private void Awake () {

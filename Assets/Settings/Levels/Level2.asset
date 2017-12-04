@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14d1a066f738676468aac22880e6296d, type: 3}
-  m_Name: Map1Level2
+  m_Name: Level2
   m_EditorClassIdentifier: 
   waves:
   - enemyCount: 5

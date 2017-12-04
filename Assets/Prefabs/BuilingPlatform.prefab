@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33122743552650830}
   - component: {fileID: 136291275572539916}
   - component: {fileID: 23942515801104812}
-  - component: {fileID: 114404539601773538}
+  - component: {fileID: 114726075801461882}
   m_Layer: 0
   m_Name: BuilingPlatform
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1252012083342988}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114404539601773538
+--- !u!114 &114726075801461882
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -93,10 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615e9484c6ec68744bb3bd50d62acf29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabsToBuild:
-  - {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
-  - {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
-  - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
+  prefabsToBuild: []
 --- !u!136 &136291275572539916
 CapsuleCollider:
   m_ObjectHideFlags: 1
