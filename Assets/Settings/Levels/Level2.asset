@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d1a066f738676468aac22880e6296d, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
+  levelScene: 1
   waves:
   - enemyCount: 5
   - enemyCount: 6

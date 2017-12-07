@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour {
 
 	private Timer timer;
 	private UnityAction spawnAction;
-	List<GameObject> prefabsToSpawn = new List<GameObject>();
+	private List<GameObject> prefabsToSpawn = new List<GameObject>();
 
 	private void Start() {
 		spawnAction += Spawn;
@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour {
 	private GameObject GetRandomObjectToSpawn() {
 		int randomIndex = Random.Range(0, prefabsToSpawn.Count);
 		GameObject objectToSpawn = prefabsToSpawn[randomIndex];
-		prefabsToSpawn.RemoveAt(randomIndex);
+		prefabsToSpawn.Remove(objectToSpawn);
 		return objectToSpawn;
 	}
 	

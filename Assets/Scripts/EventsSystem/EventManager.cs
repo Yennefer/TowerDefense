@@ -39,6 +39,10 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
+	private void Awake() {
+		DontDestroyOnLoad(gameObject);
+	}
+
 	public static void RegisterListener (string eventName, UnityAction<GameObject> listener) {
 		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {

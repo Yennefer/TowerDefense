@@ -1,42 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	[SerializeField]
-	private GameSettings gameSettings;
-	[SerializeField]
-	private Canvas levelsMenu;
-	[SerializeField]
-	private GameObject level;
+    [SerializeField]
+    private GameSettings gameSettings;
+
+    [SerializeField]
+    private Canvas levelsMenu;
 	
-	private Enums.Scene sceneName;
-	private List<LevelSettings> levels;
+    private List<LevelSettings> levels;
+    private UnityAction<GameObject> selectLevelListener;
 
-	private void Awake () {
-		DontDestroyOnLoad(gameObject);
+    private void OnEnable() {
+		EventManager.RegisterListener(Events.selectLevel.ToString(), selectLevelListener);
 	}
 
-	private void Start() {
-		ParseGameSettings(gameSettings);
-		InitLevelsMenu();
+	private void OnDisable() {
+		EventManager.UnregisterListener(Events.selectLevel.ToString(), selectLevelListener);
 	}
 
-	private void ParseGameSettings(GameSettings gameSettings) {
-		sceneName = gameSettings.gameScene;
-		levels = gameSettings.levels;
-		Debug.Log("Scene: " + sceneName + ", levels:");
+    private void Awake () {
+        DontDestroyOnLoad(gameObject);
+        selectLevelListener = LevelClicked;
+    }
 
-		foreach (LevelSettings level in levels) {
-			Debug.Log("   Level:");
-			foreach (LevelSettings.Wave wave in level.waves) {
-				Debug.Log("      Wave enemy count:" + wave.enemyCount);
-			}
-		}
-	}
+    private void Start() {
+        levels = gameSettings.levels;
+        InitLevelsMenu(levels);
+    }
 
-	private void InitLevelsMenu() {
-		
-	}
+    private void ParseGameSettings(GameSettings gameSettings) {
+        levels = gameSettings.levels;
+    }
+
+    private void InitLevelsMenu(List<LevelSettings> levelsSetting) {
+        levelsMenu.GetComponent<LevelsMenu>().Init(levels);
+    }
+
+    private void LevelClicked(GameObject levelPanel) {
+        int scene = (int) levelPanel.GetComponent<LevelPanel>().sceneName;
+        SceneManager.LoadScene(scene);
+    }
 }
