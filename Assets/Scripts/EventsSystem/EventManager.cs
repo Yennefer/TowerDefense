@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameEvent : UnityEvent<GameObject> {
+public class GameEvent : UnityEvent<EventObject> {
 	public GameEvent() {
 	}
 }
@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour {
 		DontDestroyOnLoad(gameObject);
 	}
 
-	public static void RegisterListener (string eventName, UnityAction<GameObject> listener) {
+	public static void RegisterListener (string eventName, UnityAction<EventObject> listener) {
 		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
 			thisEvent.AddListener(listener);
@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
-	public static void UnregisterListener (string eventName, UnityAction<GameObject> listener) {
+	public static void UnregisterListener (string eventName, UnityAction<EventObject> listener) {
 		if (eventManager == null) {
 			return;
 		}
@@ -65,7 +65,7 @@ public class EventManager : MonoBehaviour {
 		}
 	}
 
-	public static void TriggerEvent(string eventName, GameObject message) {
+	public static void TriggerEvent(string eventName, EventObject message) {
 		GameEvent thisEvent = null;
 		if (instance.eventDictionary.TryGetValue (eventName, out thisEvent)) {
 			thisEvent.Invoke(message);

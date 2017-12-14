@@ -13,7 +13,7 @@ public class BuildMenu : MonoBehaviour
 
     private string builderId;
 
-    private UnityAction<GameObject> builderListener;
+    private UnityAction<EventObject> builderListener;
 
     public void Awake()
     {
@@ -33,11 +33,14 @@ public class BuildMenu : MonoBehaviour
     public void SelectClick(GameObject prefab)
     {
         menuButtons.gameObject.SetActive(false);
-        EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, prefab);
+        EventObject prefabEvent = new EventObject();
+        prefabEvent.putData(EventDataTags.PREFAB_TO_BUILD_TAG, prefab);
+        EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, prefabEvent);
     }
 
-    private void SelectPrefub(GameObject builder)
+    private void SelectPrefub(EventObject selectedBuilder)
     {
+        GameObject builder = selectedBuilder.getGameObjectData(EventDataTags.TURREUT_BUILDER_TAG);
         TurretsBuilder builderObj = builder.GetComponent<TurretsBuilder>();
         builderId = builderObj.GetId();
         CreateMenu(builderObj.GetTurretsToBuild());

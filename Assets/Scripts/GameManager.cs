@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     private Canvas levelsMenu;
 	
     private List<LevelSettings> levels;
-    private UnityAction<GameObject> selectLevelListener;
+    private UnityAction<EventObject> selectLevelListener;
 
     private void OnEnable() {
 		EventManager.RegisterListener(Events.selectLevel.ToString(), selectLevelListener);
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
-        levels = gameSettings.levels;
+        ParseGameSettings(gameSettings);
         InitLevelsMenu(levels);
     }
 
@@ -41,8 +41,16 @@ public class GameManager : MonoBehaviour {
         levelsMenu.GetComponent<LevelsMenu>().Init(levels);
     }
 
-    private void LevelClicked(GameObject levelPanel) {
-        int scene = (int) levelPanel.GetComponent<LevelPanel>().sceneName;
-        SceneManager.LoadScene(scene);
+    private void LevelClicked(EventObject clickedLevel) {
+        int level = clickedLevel.getIntData(LevelPanel.LEVEL_INDEX_TAG);
+        LevelSettings levelSettings = levels[level];
+        SceneManager.LoadScene((int) levelSettings.levelScene);
+        InitLevel(levelSettings);
+    }
+
+    private void InitLevel(LevelSettings levelSettings) {
+        EventObject initLevelEvent = new EventObject();
+        initLevelEvent.putData(EventDataTags.LEVEL_SETTINGS_TAG, levelSettings);
+        EventManager.TriggerEvent(Events.initLevel.ToString(), initLevelEvent);
     }
 }

@@ -5,5 +5,6 @@ using UnityEngine;
 public enum Events {
 	buildPrefub,
 	selectPrefub,
-	selectLevel
+	selectLevel,
+	initLevel
 }

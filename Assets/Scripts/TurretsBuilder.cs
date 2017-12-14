@@ -12,7 +12,7 @@ public class TurretsBuilder : MonoBehaviour {
 	[SerializeField]
 	private GameObject[] turretsToBuild;
 
-	private UnityAction<GameObject> turretBuildListener;
+	private UnityAction<EventObject> turretBuildListener;
 
 	private string id = System.Guid.NewGuid().ToString();
 
@@ -29,7 +29,9 @@ public class TurretsBuilder : MonoBehaviour {
 	}
 
 	private void OnMouseDown () {
-		EventManager.TriggerEvent(Events.selectPrefub.ToString(), gameObject);
+		EventObject selectTurretEvent = new EventObject();
+        selectTurretEvent.putData(EventDataTags.TURREUT_BUILDER_TAG, gameObject);
+		EventManager.TriggerEvent(Events.selectPrefub.ToString(), selectTurretEvent);
 	}
 
 	public void Init(TurretSettings settings) {
@@ -46,7 +48,8 @@ public class TurretsBuilder : MonoBehaviour {
 		return id;
 	}
 
-	private void BuildTurret(GameObject turretToBuild) {
+	private void BuildTurret(EventObject prefabEvent) {
+		GameObject turretToBuild = prefabEvent.getGameObjectData(EventDataTags.PREFAB_TO_BUILD_TAG);
 		Instantiate(turretToBuild, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}

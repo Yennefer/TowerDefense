@@ -9,13 +9,17 @@ public class LevelPanel : MonoBehaviour
     [SerializeField]
     private Text levelNumber;
 
-    public Enums.Scene sceneName {set; get;}
+    public const string LEVEL_INDEX_TAG = "Level index";
+    public Enums.Scene scene {set; get;}
+
+    private int level;
 
     public void Init(LevelSettings levelSettings, int level)
     {
         levelNumber.text = "Level " + level.ToString();
-        sceneName = levelSettings.levelScene;
-        Debug.Log("Level N" + level + ": scene: " + sceneName + ", waves:");
+        scene = levelSettings.levelScene;
+        this.level = level;
+        Debug.Log("Level N" + level + ": scene: " + scene + ", waves:");
         foreach (LevelSettings.Wave wave in levelSettings.waves)
         {
             Debug.Log("   Enemy count:" + wave.enemyCount);
@@ -26,6 +30,8 @@ public class LevelPanel : MonoBehaviour
     }
 
     private void StartLevel() {
-        EventManager.TriggerEvent(Events.selectLevel.ToString(), gameObject);
+        EventObject initLevelEvent = new EventObject();
+        initLevelEvent.putData(LEVEL_INDEX_TAG, level);
+        EventManager.TriggerEvent(Events.selectLevel.ToString(), initLevelEvent);
     }
 }
