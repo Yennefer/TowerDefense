@@ -14,6 +14,7 @@ public class TargetMovement : MonoBehaviour {
     }
 
     void Start () {
-    	agent.destination = target.position; 
+		agent.enabled = true;
+        agent.destination = target.position;
     }
 }

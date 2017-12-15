@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Settings;
 
 public class ObstTurret : BaseTurret {
 
@@ -36,7 +37,7 @@ public class ObstTurret : BaseTurret {
 		Destroy(obstacle, boxLifeTime);
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.otSettings.fireRate;
 		range = settings.otSettings.range;

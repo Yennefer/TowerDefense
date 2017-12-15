@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Settings;
 
 public class BombTurret : BaseTurret {
 
@@ -28,7 +29,7 @@ public class BombTurret : BaseTurret {
 		bomb.GetComponent<BombEffect>().dmg = damage;
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.btSettings.fireRate;
 		range = settings.btSettings.range;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Settings;
 
 public class BaseTurret : MonoBehaviour {
 
@@ -39,7 +40,7 @@ public class BaseTurret : MonoBehaviour {
 		Debug.DrawRay(rotator.position, rotator.forward * 50, Color.blue);
 	}
 
-	public void Init(TurretSettings settings) {
+	public void Init(TurretsSettings settings) {
 		ExtractSettings(settings);
 	}
 
@@ -47,7 +48,7 @@ public class BaseTurret : MonoBehaviour {
 	{
 	}
 
-	protected virtual void ExtractSettings(TurretSettings settings)
+	protected virtual void ExtractSettings(TurretsSettings settings)
 	{
 	}
 

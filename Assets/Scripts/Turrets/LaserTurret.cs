@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Settings;
 
 public class LaserTurret : BaseTurret {
 
@@ -38,7 +39,7 @@ public class LaserTurret : BaseTurret {
 		timer.StartTimer(laserDuration);
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.ltSettings.fireRate;
 		range = settings.ltSettings.range;

@@ -52,6 +52,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -67,6 +68,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -93,10 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615e9484c6ec68744bb3bd50d62acf29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turretsToBuild:
-  - {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
-  - {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
-  - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
+  turretsSettings: {fileID: 11400000, guid: 4df15296f0e2a674a9d24496ddf65f39, type: 2}
 --- !u!136 &136291275572539916
 CapsuleCollider:
   m_ObjectHideFlags: 1

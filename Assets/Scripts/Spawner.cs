@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Settings;
 
 /*
 	Spawner instantiate all objects from "prefabsToSpawn" array once
@@ -11,9 +12,7 @@ using UnityEngine.Events;
 public class Spawner : MonoBehaviour {
 
 	[SerializeField]
-	private float minSpawnTimePeriod;
-	[SerializeField]
-	private float maxSpawnTimePeriod;
+	private EnemiesSpawnSettings enemiesSpawnSettings;
 
 	private Timer timer;
 	private UnityAction spawnAction;
@@ -28,7 +27,7 @@ public class Spawner : MonoBehaviour {
 		if (prefabsToSpawn.Count > 0) {
 			GameObject spawnObject = Instantiate(GetRandomObjectToSpawn(), transform.position, Quaternion.identity);
 			spawnObject.transform.parent = gameObject.transform;
-			timer.RestartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
+			//timer.RestartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 		} else {
 			timer.StopTimer();
 		}
@@ -48,6 +47,6 @@ public class Spawner : MonoBehaviour {
 	}
 
 	public void StartSpawn() {
-		timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
+		//timer.StartTimer(Random.Range(minSpawnTimePeriod, maxSpawnTimePeriod));
 	}
 }

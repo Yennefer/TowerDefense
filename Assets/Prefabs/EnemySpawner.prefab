@@ -51,10 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2fde16cd572cd4b9318546baa01a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabsToSpawn:
-  - {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
-  - {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
-  - {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
-  - {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
-  minSpawnTimePeriod: 2
-  maxSpawnTimePeriod: 8
+  enemiesSpawnSettings: {fileID: 11400000, guid: e7f94b16e7681fa4497d248bd47a0d85,
+    type: 2}

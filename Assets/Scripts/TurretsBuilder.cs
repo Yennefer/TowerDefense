@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Settings;
 
 /*
 	Builder instantiate object from "prefabsToBuild" array
@@ -10,7 +11,7 @@ using UnityEngine.Events;
 public class TurretsBuilder : MonoBehaviour {
 
 	[SerializeField]
-	private GameObject[] turretsToBuild;
+	private TurretsSettings turretsSettings;
 
 	private UnityAction<EventObject> turretBuildListener;
 
@@ -34,22 +35,22 @@ public class TurretsBuilder : MonoBehaviour {
 		EventManager.TriggerEvent(Events.selectPrefub.ToString(), selectTurretEvent);
 	}
 
-	public void Init(TurretSettings settings) {
-		foreach (GameObject prefab in turretsToBuild) {
-			prefab.GetComponent<BaseTurret>().Init(settings);
-		}
+	public void Init(TurretsSettings settings) {
+		//foreach (GameObject prefab in turretsToBuild) {
+			//prefab.GetComponent<BaseTurret>().Init(settings);
+		//}
 	}
 
-	public GameObject[] GetTurretsToBuild() {
-		return turretsToBuild;
-	}
+	//public GameObject[] GetTurretsToBuild() {
+		//return turretsToBuild;
+	//}
 
 	public string GetId() {
 		return id;
 	}
 
 	private void BuildTurret(EventObject prefabEvent) {
-		GameObject turretToBuild = prefabEvent.getGameObjectData(EventDataTags.PREFAB_TO_BUILD_TAG);
+		GameObject turretToBuild = (GameObject) prefabEvent.getObjectData(EventDataTags.PREFAB_TO_BUILD_TAG);
 		Instantiate(turretToBuild, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
