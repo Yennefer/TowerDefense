@@ -4,31 +4,29 @@ using UnityEngine;
 
 public class EventObject : Object {
 
-	private Dictionary<string, int> intData = new Dictionary<string, int>();
-	private Dictionary<string, string> stringData = new Dictionary<string, string>();
-	private Dictionary<string, Object> objectData = new Dictionary<string, Object>();
+	private Dictionary<string, object> data = new Dictionary<string, object>();
 
 	public void putData(string tag, int data) {
-		intData.Add(tag, data);
+		this.data.Add(tag, data);
 	}
 
 	public void putData(string tag, string data) {
-		stringData.Add(tag, data);
+		this.data.Add(tag, data);
 	}
 
 	public void putData(string tag, Object data) {
-		objectData.Add(tag, data);
+		this.data.Add(tag, data);
 	}
 
 	public int getIntData(string tag) {
-		return intData[tag];
+		return (int) data[tag];
 	}
 
 	public string getStringData(string tag) {
-		return stringData[tag];
+		return (string) data[tag];
 	}
 
 	public Object getObjectData(string tag) {
-		return objectData[tag];
+		return (Object) data[tag];
 	}
 }
