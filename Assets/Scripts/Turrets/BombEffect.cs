@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class BombEffect : MonoBehaviour {
 
@@ -9,18 +6,19 @@ public class BombEffect : MonoBehaviour {
 	private float radius;
 	[SerializeField]
 	private float power;
-	[SerializeField]
-	private int damage = 20;
 
-	private void OnCollisionEnter(Collision other)
-	{
+	private int damage;
+	
+	public int dmg { 
+		set { damage = value; }
+	}
+
+	private void OnCollisionEnter(Collision other) {
 		Vector3 explosionPos = transform.position;
 		Collider[] colliders = Physics.OverlapSphere(explosionPos, radius);
-		foreach (Collider hit in colliders)
-		{
+		foreach (Collider hit in colliders) {
 			Enemy enemy = hit.GetComponent<Enemy>();
-			if (enemy != null)
-			{
+			if (enemy != null) {
 				// Not doing force yet, because of animation problems
 				// ApplyExplosionForce(enemy.gameObject, explosionPos);
 				enemy.Hit(damage);

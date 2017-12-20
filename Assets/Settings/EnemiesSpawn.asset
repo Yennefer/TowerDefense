@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a88ccc6e471d2345941be20ae715aa0, type: 3}
+  m_Name: EnemiesSpawn
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
+  waves:
+  - timeBeforeWave: 0
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
+    enemyCount: 4
+  - timeBeforeWave: 30
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
+    enemyCount: 6
+  - timeBeforeWave: 30
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
+    enemyCount: 8

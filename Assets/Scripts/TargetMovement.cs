@@ -1,19 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class TargetMovement : MonoBehaviour {
 
 	[SerializeField]
 	private Transform target;
+
 	private NavMeshAgent agent;
 
-	void Awake () {
+	private void Awake () {
         agent = GetComponent<NavMeshAgent>();
+
+        if (!agent) {
+			Debug.LogError("Object with TargetMovement script should have a NavMeshAgent component");
+		}
     }
 
-    void Start () {
-    	agent.destination = target.position; 
+    private void Start () {
+		agent.enabled = true;
+        agent.destination = target.position;
     }
 }
