@@ -11,25 +11,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a079be028bb3b4b9cc30aed3bb5456, type: 3}
   m_Name: Turrets
   m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
+  - {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
+  - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
   btSettings:
     name: BombTurret
-    prefab: {fileID: 0}
-    fireRate: 0
-    range: 0
-    damage: 0
-    bombFlySpeed: 0
+    fireRate: 4
+    range: 8
+    damage: 20
+    bombFlySpeed: 20
   ltSettings:
     name: LaserTurret
-    prefab: {fileID: 0}
-    fireRate: 0
-    range: 0
-    laserDuration: 0
-    damage: 0
+    fireRate: 3
+    range: 13
+    laserDuration: 0.5
+    damage: 5
   otSettings:
     name: ObstTurret
-    prefab: {fileID: 0}
-    fireRate: 0
-    range: 0
-    boxLifeTime: 0
-    boxStrength: 0
-    boxFlySpeed: 0
+    fireRate: 4
+    range: 10
+    boxLifeTime: 2
+    boxStrength: 16
+    boxFlySpeed: 20

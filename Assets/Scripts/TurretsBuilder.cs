@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Settings;
 
 /*
-	Builder instantiate object from "prefabsToBuild" array
+	Builder instantiate object from `turretsSettings`
 	when prefub is selected from a menu
  */
 public class TurretsBuilder : MonoBehaviour {
@@ -13,45 +13,52 @@ public class TurretsBuilder : MonoBehaviour {
 	[SerializeField]
 	private TurretsSettings turretsSettings;
 
-	private UnityAction<EventObject> turretBuildListener;
-
 	private string id = System.Guid.NewGuid().ToString();
+	private List<GameObject> turretPrefabs = new List<GameObject>();
 
 	private void Awake() {
-		turretBuildListener = BuildTurret;
+		if (!turretsSettings) {
+			Debug.LogError("You've forgotten to set a parameter to TurretsBuilder script");
+		}
+
+		ParseSettings();
 	}
 
 	private void OnEnable() {
-		EventManager.RegisterListener(Events.buildPrefub.ToString() + id, turretBuildListener);
+		EventManager.RegisterListener(Events.buildPrefub.ToString() + id, BuildTurret);
 	}
 
 	private void OnDisable() {
-		EventManager.UnregisterListener(Events.buildPrefub.ToString() + id, turretBuildListener);
+		EventManager.UnregisterListener(Events.buildPrefub.ToString() + id, BuildTurret);
 	}
 
 	private void OnMouseDown () {
-		EventObject selectTurretEvent = new EventObject();
-        selectTurretEvent.putData(EventDataTags.TURREUT_BUILDER_TAG, gameObject);
-		EventManager.TriggerEvent(Events.selectPrefub.ToString(), selectTurretEvent);
+		EventObject eo = new EventObject();
+        eo.putData(EventDataTags.TURRET_BUILDER, this);
+		EventManager.TriggerEvent(Events.selectPrefub.ToString(), eo);
 	}
 
-	public void Init(TurretsSettings settings) {
-		//foreach (GameObject prefab in turretsToBuild) {
-			//prefab.GetComponent<BaseTurret>().Init(settings);
-		//}
+	public void ParseSettings() {
+		turretPrefabs.AddRange( turretsSettings.prefabs );
 	}
 
-	//public GameObject[] GetTurretsToBuild() {
-		//return turretsToBuild;
-	//}
+	private void BuildTurret(EventObject eo) {
+		GameObject turretToBuild = (GameObject) eo.getObjectData(EventDataTags.TURRET_TO_BUILD);
+		GameObject turret = Instantiate(turretToBuild, transform.position, transform.rotation);
+		InitTurret(turret);
+		Destroy(gameObject);
+	}
+
+	public void InitTurret(GameObject prefab) {
+		BaseTurret bt = prefab.GetComponentInChildren<BaseTurret>();
+		bt.Init(turretsSettings);
+	}
 
 	public string GetId() {
 		return id;
 	}
 
-	private void BuildTurret(EventObject prefabEvent) {
-		GameObject turretToBuild = (GameObject) prefabEvent.getObjectData(EventDataTags.PREFAB_TO_BUILD_TAG);
-		Instantiate(turretToBuild, transform.position, Quaternion.identity);
-		Destroy(gameObject);
+	public List<GameObject> GetTurretPrefabs() {
+		return turretPrefabs;
 	}
 }

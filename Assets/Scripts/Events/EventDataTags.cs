@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EventDataTags {
-	public const string TURREUT_BUILDER_TAG = "Turret builder";
-	public const string PREFAB_TO_BUILD_TAG = "Prefub to build";
+	public const string TURRET_BUILDER = "Turret builder id";
+	public const string TURRET_TO_BUILD = "Turret to build";
 }

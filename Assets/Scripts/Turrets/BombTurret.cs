@@ -13,7 +13,7 @@ public class BombTurret : BaseTurret {
 	
 	private void Start()
 	{
-		// setting up enemy detection radius
+		// Setup enemy detection radius
 		GetComponent<SphereCollider>().radius = range;
 	}
 

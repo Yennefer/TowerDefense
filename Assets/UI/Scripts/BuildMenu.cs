@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
@@ -11,48 +13,41 @@ public class BuildMenu : MonoBehaviour
     [SerializeField]
     private Button buttonPrefab;
 
-    private string builderId;
-
-    private UnityAction<EventObject> builderListener;
+    private string builderId = string.Empty;
 
     public void Awake()
     {
-        builderListener = SelectPrefub;
+        if (!menuButtons || !buttonPrefab) {
+			Debug.LogError("You've forgotten to set a parameters to BuildMenu script");
+		}
     }
 
     public void OnEnable()
     {
-        EventManager.RegisterListener(Events.selectPrefub.ToString(), builderListener);
+        EventManager.RegisterListener(Events.selectPrefub.ToString(), SelectPrefub);
     }
 
     public void OnDisable()
     {
-        EventManager.UnregisterListener(Events.selectPrefub.ToString(), builderListener);
+        EventManager.UnregisterListener(Events.selectPrefub.ToString(), SelectPrefub);
     }
 
-    public void SelectClick(GameObject prefab)
+    private void SelectPrefub(EventObject eo)
     {
-        menuButtons.gameObject.SetActive(false);
-        EventObject prefabEvent = new EventObject();
-        prefabEvent.putData(EventDataTags.PREFAB_TO_BUILD_TAG, prefab);
-        EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, prefabEvent);
+        TurretsBuilder builder = (TurretsBuilder) eo.getObjectData(EventDataTags.TURRET_BUILDER);
+        builderId = builder.GetId();
+        List<GameObject> prefabs = builder.GetTurretPrefabs();
+        if (prefabs.Count > 0) {
+            InitMenu(prefabs);
+        }
     }
 
-    private void SelectPrefub(EventObject selectedBuilder)
-    {
-        GameObject builder = (GameObject) selectedBuilder.getObjectData(EventDataTags.TURREUT_BUILDER_TAG);
-        TurretsBuilder builderObj = builder.GetComponent<TurretsBuilder>();
-        builderId = builderObj.GetId();
-        //CreateMenu(builderObj.GetTurretsToBuild());
-        menuButtons.gameObject.SetActive(true);
-    }
-
-    private void CreateMenu(GameObject[] prefubs)
+    private void InitMenu(List<GameObject> prefabs)
     {
         ClearMenu();
-        for (int i = 0; i < prefubs.Length; i++)
+        for (int i = 0; i < prefabs.Count; i++)
         {
-            GameObject prefab = prefubs[i];
+            GameObject prefab = prefabs[i];
             Button button = Instantiate(buttonPrefab);
             button.transform.SetParent(menuButtons.transform, false);
             button.transform.localScale = new Vector3(1, 1, 1);
@@ -60,13 +55,22 @@ public class BuildMenu : MonoBehaviour
             button.GetComponentInChildren<Text>().text = prefab.name;
             button.onClick.AddListener(() => SelectClick(prefab));
         }
+        menuButtons.gameObject.SetActive(true);
     }
 
     private void ClearMenu()
     {
         foreach (Transform button in menuButtons.transform)
         {
-            GameObject.Destroy(button.gameObject);
+            Destroy(button.gameObject);
         }
+    }
+
+    public void SelectClick(GameObject prefab)
+    {
+        menuButtons.gameObject.SetActive(false);
+        EventObject eo = new EventObject();
+        eo.putData(EventDataTags.TURRET_TO_BUILD, prefab);
+        EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, eo);
     }
 }
