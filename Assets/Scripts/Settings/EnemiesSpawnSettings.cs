@@ -14,7 +14,8 @@ namespace Settings {
     public class Wave
     {
         public float timeBeforeWave;
-        public float timeBetweenEnemies;
+        public float minTimeBetweenEnemies;
+        public float maxTimeBetweenEnemies;
         public int enemyCount;
     }
 }

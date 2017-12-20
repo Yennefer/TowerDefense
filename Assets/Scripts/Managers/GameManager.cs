@@ -9,11 +9,13 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private GameMenu gameMenu;
+    [SerializeField]
+    private EnemySpawner spawner;
 	
     private List<Wave> waves;
 
     private void Awake() {
-        if (!gameMenu) {
+        if (!gameMenu || !spawner) {
 			Debug.LogError("You've forgotten to set a parameter to GameManager script");
 		}
 
@@ -22,5 +24,6 @@ public class GameManager : MonoBehaviour {
 
     private void StartGame() {
         gameMenu.gameObject.SetActive(false);
+        spawner.StartSpawn();
     }
 }

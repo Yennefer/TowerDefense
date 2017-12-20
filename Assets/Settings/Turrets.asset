@@ -17,20 +17,20 @@ MonoBehaviour:
   - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
   btSettings:
     name: BombTurret
-    fireRate: 4
-    range: 8
+    fireRate: 3
+    range: 20
     damage: 20
-    bombFlySpeed: 20
+    bombFlySpeed: 50
   ltSettings:
     name: LaserTurret
-    fireRate: 3
-    range: 13
-    laserDuration: 0.5
-    damage: 5
+    fireRate: 1
+    range: 20
+    laserDuration: 0.05
+    damage: 15
   otSettings:
     name: ObstTurret
-    fireRate: 4
-    range: 10
-    boxLifeTime: 2
-    boxStrength: 16
-    boxFlySpeed: 20
+    fireRate: 2
+    range: 20
+    boxLifeTime: 5
+    boxStrength: 20
+    boxFlySpeed: 30

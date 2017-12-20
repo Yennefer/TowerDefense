@@ -14,11 +14,14 @@ MonoBehaviour:
   enemy: {fileID: 1225203621667266, guid: 70e3c2646487e4f499dcf9a08e0b8255, type: 2}
   waves:
   - timeBeforeWave: 0
-    timeBetweenEnemies: 6
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
     enemyCount: 4
-  - timeBeforeWave: 60
-    timeBetweenEnemies: 4
+  - timeBeforeWave: 10
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
     enemyCount: 6
-  - timeBeforeWave: 180
-    timeBetweenEnemies: 2
-    enemyCount: 10
+  - timeBeforeWave: 10
+    minTimeBetweenEnemies: 2
+    maxTimeBetweenEnemies: 6
+    enemyCount: 8

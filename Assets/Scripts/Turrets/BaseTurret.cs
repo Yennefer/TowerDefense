@@ -58,7 +58,6 @@ public class BaseTurret : MonoBehaviour {
 		if (enemy != null)
 		{
 			targets.AddLast(enemy);
-			Debug.Log(gameObject.name + ": " + other.gameObject.name + " got in range. Target count = " + targets.Count);
 		}
 	}
 
@@ -68,7 +67,6 @@ public class BaseTurret : MonoBehaviour {
 		if (enemy != null)
 		{
 			targets.Remove(enemy);
-			Debug.Log(gameObject.name + ": " + other.gameObject.name + " leaved range. Target count = " + targets.Count);
 		}
 	}
 
