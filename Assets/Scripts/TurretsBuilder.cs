@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Settings;
 
-/*
-	Builder instantiate object from `turretsSettings`
-	when prefub is selected from a menu
- */
 public class TurretsBuilder : MonoBehaviour {
 
 	[SerializeField]
 	private TurretsSettings turretsSettings;
 
-	private string id = System.Guid.NewGuid().ToString();
-	private List<GameObject> turretPrefabs = new List<GameObject>();
+	private string _id = System.Guid.NewGuid().ToString();
+	private List<GameObject> _turretPrefabs = new List<GameObject>();
+
+	public string id { 
+		get { return _id; }
+	}
+
+	public List<GameObject> turretPrefabs { 
+		get { return _turretPrefabs; }
+	}
 
 	private void Awake() {
 		if (!turretsSettings) {
@@ -39,7 +41,7 @@ public class TurretsBuilder : MonoBehaviour {
 	}
 
 	public void ParseSettings() {
-		turretPrefabs.AddRange( turretsSettings.prefabs );
+		_turretPrefabs.AddRange( turretsSettings.prefabs );
 	}
 
 	private void BuildTurret(EventObject eo) {
@@ -52,13 +54,5 @@ public class TurretsBuilder : MonoBehaviour {
 	public void InitTurret(GameObject prefab) {
 		BaseTurret bt = prefab.GetComponentInChildren<BaseTurret>();
 		bt.Init(turretsSettings);
-	}
-
-	public string GetId() {
-		return id;
-	}
-
-	public List<GameObject> GetTurretPrefabs() {
-		return turretPrefabs;
 	}
 }

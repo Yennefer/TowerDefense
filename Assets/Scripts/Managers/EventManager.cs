@@ -1,21 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameEvent : UnityEvent<EventObject> {}
 
-/*
-	EventManager can invoke events and register listener for this events 
- */
 public class EventManager : MonoBehaviour {
 
 	private Dictionary<string, GameEvent> eventDictionary;
 	private static EventManager eventManager;
 
-	protected EventManager() {}
+	private EventManager() {}
 	
-	public static EventManager instance {
+	private static EventManager instance {
 		get {
 			if (eventManager == null) {
 				eventManager = (EventManager) FindObjectOfType (typeof (EventManager));

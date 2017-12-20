@@ -17,11 +17,11 @@ MonoBehaviour:
     minTimeBetweenEnemies: 2
     maxTimeBetweenEnemies: 6
     enemyCount: 4
-  - timeBeforeWave: 10
+  - timeBeforeWave: 30
     minTimeBetweenEnemies: 2
     maxTimeBetweenEnemies: 6
     enemyCount: 6
-  - timeBeforeWave: 10
+  - timeBeforeWave: 30
     minTimeBetweenEnemies: 2
     maxTimeBetweenEnemies: 6
     enemyCount: 8

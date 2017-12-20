@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class BuildMenu : MonoBehaviour
 {
@@ -15,19 +13,19 @@ public class BuildMenu : MonoBehaviour
 
     private string builderId = string.Empty;
 
-    public void Awake()
+    private void Awake()
     {
         if (!menuButtons || !buttonPrefab) {
 			Debug.LogError("You've forgotten to set a parameters to BuildMenu script");
 		}
     }
 
-    public void OnEnable()
+    private void OnEnable()
     {
         EventManager.RegisterListener(Events.selectPrefub.ToString(), SelectPrefub);
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         EventManager.UnregisterListener(Events.selectPrefub.ToString(), SelectPrefub);
     }
@@ -35,8 +33,8 @@ public class BuildMenu : MonoBehaviour
     private void SelectPrefub(EventObject eo)
     {
         TurretsBuilder builder = (TurretsBuilder) eo.getObjectData(EventDataTags.TURRET_BUILDER);
-        builderId = builder.GetId();
-        List<GameObject> prefabs = builder.GetTurretPrefabs();
+        builderId = builder.id;
+        List<GameObject> prefabs = builder.turretPrefabs;
         if (prefabs.Count > 0) {
             InitMenu(prefabs);
         }

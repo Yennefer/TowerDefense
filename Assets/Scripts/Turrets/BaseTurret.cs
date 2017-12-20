@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Settings;
 
@@ -8,12 +7,13 @@ public class BaseTurret : MonoBehaviour {
 	protected float fireRate;
 	protected float range;
 	protected int flySpeed;
+
 	private Transform rotator;
 	private float nextFireTime;
 	private LinkedList<Enemy> targets;
 
-	private void Awake()
-	{
+	private void Awake() {
+
 		// get turret's rotator
 		rotator = GetComponent<Transform>();
 
@@ -21,8 +21,7 @@ public class BaseTurret : MonoBehaviour {
 		targets = new LinkedList<Enemy>();
 	}
 
-	private void Update()
-	{
+	private void Update() {
 		Enemy enemy = null;
 		if (HasNotNullTarget(out enemy))
 		{
@@ -44,16 +43,13 @@ public class BaseTurret : MonoBehaviour {
 		ExtractSettings(settings);
 	}
 
-	protected virtual void Fire(Enemy enemy) 
-	{
+	protected virtual void Fire(Enemy enemy) {
 	}
 
-	protected virtual void ExtractSettings(TurretsSettings settings)
-	{
+	protected virtual void ExtractSettings(TurretsSettings settings) {
 	}
 
-	private void OnTriggerEnter(Collider other)
-	{
+	private void OnTriggerEnter(Collider other)	{
 		Enemy enemy = other.gameObject.GetComponent<Enemy>();
 		if (enemy != null)
 		{
@@ -61,8 +57,7 @@ public class BaseTurret : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerExit(Collider other)
-	{
+	private void OnTriggerExit(Collider other) {
 		Enemy enemy = other.gameObject.GetComponent<Enemy>();
 		if (enemy != null)
 		{

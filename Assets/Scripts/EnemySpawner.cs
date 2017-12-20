@@ -1,14 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using Settings;
 
-/*
-	Spawner instantiate all objects from "prefabsToSpawn" array once
-	with random period of time specified in seconds 
-	by "minSpawnTimePeriod" and "maxSpawnTimePeriod" variables
- */
 public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField]
@@ -23,7 +16,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	private void Awake() {
 		if (!enemiesSpawnSettings) {
-			Debug.LogError("You've forgotten to set a parameter to Spawner script");
+			Debug.LogError("You've forgotten to set a parameter to EnemySpawner script");
 		}
 
 		ParseSettings();
@@ -68,7 +61,7 @@ public class EnemySpawner : MonoBehaviour {
 		}
 	}
 
-	public float GetRandomTime() {
+	private float GetRandomTime() {
 		return Random.Range(waves[currentWave].minTimeBetweenEnemies, waves[currentWave].maxTimeBetweenEnemies);
 	}
 }

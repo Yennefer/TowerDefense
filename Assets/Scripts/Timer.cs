@@ -1,13 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
-/*
-	Timer would preform "callback" action 
-	with specified in seconds "timePeriod"
-	after calling Start() and before Stop() is called
- */
 public class Timer : MonoBehaviour {
 
 	private float timePeriod = 0;
@@ -42,7 +35,7 @@ public class Timer : MonoBehaviour {
 		this.callback = callback;
 	}
 
-	public void Update() {
+	private void Update() {
 		if (ticking) {
 			timeLeft -= Time.deltaTime;
     		if (timeLeft <= 0) {
@@ -52,7 +45,7 @@ public class Timer : MonoBehaviour {
 		}
 	}
 
-	public bool IsTicking() {
+	private bool IsTicking() {
 		return ticking;
 	}
 }
