@@ -14,9 +14,9 @@ public class BombTurret : BaseTurret {
 	private void Start()
 	{
 		coll = GetComponent<SphereCollider>();
-
 		if (!coll) {
 			Debug.LogError("Object with BombTurret script should have a SphereCollider component");
+			return;
 		}
 
 		// Setup enemy detection radius

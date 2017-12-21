@@ -6,6 +6,8 @@ public class EnemySpawner : MonoBehaviour {
 
 	[SerializeField]
 	private EnemiesSpawnSettings enemiesSpawnSettings;
+	[SerializeField]
+	private GameObject path;
 
 	private Timer waveTimer;
 	private Timer enemyTimer;
@@ -15,8 +17,9 @@ public class EnemySpawner : MonoBehaviour {
 	private int currentWave = 0;
 
 	private void Awake() {
-		if (!enemiesSpawnSettings) {
+		if (!enemiesSpawnSettings || !path) {
 			Debug.LogError("You've forgotten to set a parameter to EnemySpawner script");
+			return;
 		}
 
 		ParseSettings();
@@ -51,14 +54,27 @@ public class EnemySpawner : MonoBehaviour {
     private void SpawnEnemy() {
 		if (enemyCount > 0) {
 			enemyCount--;
-			GameObject spawn = Instantiate(enemy, transform.position, transform.rotation);
-			spawn.transform.parent = gameObject.transform;
+			GameObject go = Instantiate(enemy, transform.position, transform.rotation);
+			go.transform.parent = gameObject.transform;
+
+			SetEnemyOnPath(go);
+			
 			enemyTimer.RestartTimer( GetRandomTime() );
 		} else {
 			enemyTimer.StopTimer();
 			currentWave++;
 			StartNewWave();
 		}
+	}
+
+	private void SetEnemyOnPath(GameObject enemy) {
+		TargetMovement tm = enemy.GetComponent<TargetMovement>();
+		if (!tm) {
+			Debug.LogError("TargetMovement script does not attached to spawned enemy");
+			return;
+		}
+
+		tm.StartPathMovement(path);
 	}
 
 	private float GetRandomTime() {
