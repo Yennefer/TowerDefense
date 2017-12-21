@@ -3,9 +3,7 @@ using UnityEngine.AI;
 
 public class TargetMovement : MonoBehaviour {
 
-	[SerializeField]
-	private Transform target;
-
+	private GameObject path;
 	private NavMeshAgent agent;
 
 	private void Awake () {
@@ -16,20 +14,8 @@ public class TargetMovement : MonoBehaviour {
 		}
     }
 
-    private void Start () {
+	public void StartPathMovement (GameObject path) {
 		agent.enabled = true;
-        agent.destination = target.position;
+        agent.destination = path.transform.position;
     }
-
-	void OnDrawGizmosSelected()
-	{
-		if (agent == null || agent.path == null) {
-			return;
-		}
-		for (int i = 0; i < agent.path.corners.Length - 1; i++)
-		{
-			Gizmos.DrawLine (agent.path.corners [i], agent.path.corners [i + 1]);
-		}
-
-	}
 }
