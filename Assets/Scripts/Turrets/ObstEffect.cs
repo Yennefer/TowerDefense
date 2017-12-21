@@ -1,19 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ObstEffect : MonoBehaviour {
 
 	private int boxStrength;
+
 	public int boxStr { set { boxStrength = value; }}
 
-	public void Hit(int damage)
-	{
+	public void Hit(int damage) {
 		// Enemy attacks the box and destroys it
 		boxStrength -= damage;
-		
-		Debug.Log(gameObject.name + ": Hit with " + damage + " damage. Health " + boxStrength);
-		
+
 		if (boxStrength <= 0) {
 			Break();
 		} else {
@@ -21,13 +17,11 @@ public class ObstEffect : MonoBehaviour {
 		}
 	}
 
-	private void Break()
-	{
+	private void Break() {
 		Destroy(gameObject);
 	}
 
-	private void UpdateHealth()
-	{
+	private void UpdateHealth() {
 		// Show and update health bar
 	}
 }

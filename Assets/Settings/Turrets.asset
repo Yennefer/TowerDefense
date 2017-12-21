@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a079be028bb3b4b9cc30aed3bb5456, type: 3}
+  m_Name: Turrets
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
+  - {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
+  - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
+  btSettings:
+    name: BombTurret
+    fireRate: 3
+    range: 20
+    damage: 20
+    bombFlySpeed: 50
+  ltSettings:
+    name: LaserTurret
+    fireRate: 1
+    range: 20
+    laserDuration: 0.05
+    damage: 15
+  otSettings:
+    name: ObstTurret
+    fireRate: 2
+    range: 20
+    boxLifeTime: 5
+    boxStrength: 20
+    boxFlySpeed: 30

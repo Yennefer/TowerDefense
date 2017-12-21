@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using DG.Tweening;
+using Settings;
 
 public class ObstTurret : BaseTurret {
 
@@ -9,16 +8,22 @@ public class ObstTurret : BaseTurret {
 	private GameObject obstPrefab;
 	[SerializeField]
 	private Transform obstSpawn;
+
 	protected int boxStrength;
 	private float boxLifeTime;
-
+	private SphereCollider coll;
+	
 	private void Start()
 	{
-		// get settings for obstacle turret
-		ExtractSettings(settings);
+
+		coll = GetComponent<SphereCollider>();
+
+		if (!coll) {
+			Debug.LogError("Object with LaserTurret script should have a SphereCollider component");
+		}
 
 		// setting up enemy detection radius
-		GetComponent<SphereCollider>().radius = range;
+		coll.radius = range;
 	}
 
 	protected override void Fire(Enemy enemy)
@@ -39,7 +44,7 @@ public class ObstTurret : BaseTurret {
 		Destroy(obstacle, boxLifeTime);
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.otSettings.fireRate;
 		range = settings.otSettings.range;

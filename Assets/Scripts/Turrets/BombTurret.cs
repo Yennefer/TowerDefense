@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Settings;
 
 public class BombTurret : BaseTurret {
 
@@ -8,16 +7,22 @@ public class BombTurret : BaseTurret {
 	private GameObject bombPrefab;
 	[SerializeField]
 	private Transform bombSpawn;
+
 	private int damage;
+	private SphereCollider coll;
 	
 	private void Start()
 	{
-		// get settings for bomb turret
-		ExtractSettings(settings);
+		coll = GetComponent<SphereCollider>();
 
-		// setting up enemy detection radius
-		GetComponent<SphereCollider>().radius = range;
+		if (!coll) {
+			Debug.LogError("Object with BombTurret script should have a SphereCollider component");
+		}
+
+		// Setup enemy detection radius
+		coll.radius = range;
 	}
+	
 	protected override void Fire(Enemy enemy)
 	{
 		// instantiate the prefab
@@ -30,7 +35,7 @@ public class BombTurret : BaseTurret {
 		bomb.GetComponent<BombEffect>().dmg = damage;
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.btSettings.fireRate;
 		range = settings.btSettings.range;

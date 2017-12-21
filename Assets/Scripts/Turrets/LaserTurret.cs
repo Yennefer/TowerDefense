@@ -1,24 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
+using Settings;
 
 public class LaserTurret : BaseTurret {
 
 	[SerializeField]
 	private Transform laserEmit;
+
 	private float laserDuration;
 	private int damage;
 	private LineRenderer laserLine;
 	private Timer timer;
-
+	private SphereCollider coll;
+	
 	private void Start()
 	{
-		// get settings for laser turret
-		ExtractSettings(settings);
+		coll = GetComponent<SphereCollider>();
+
+		if (!coll) {
+			Debug.LogError("Object with LaserTurret script should have a SphereCollider component");
+		}
 
 		// setting up enemy detection radius
-		GetComponent<SphereCollider>().radius = range;
+		coll.radius = range;
 
 		// get linerenderer to draw laser line
 		laserLine = GetComponent<LineRenderer>();
@@ -41,7 +44,7 @@ public class LaserTurret : BaseTurret {
 		timer.StartTimer(laserDuration);
 	}
 
-	protected override void ExtractSettings(TurretSettings settings)
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
 		fireRate = settings.ltSettings.fireRate;
 		range = settings.ltSettings.range;
