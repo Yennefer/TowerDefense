@@ -50,5 +50,6 @@ public class ObstTurret : BaseTurret {
 		boxStrength = settings.otSettings.boxStrength;
 		boxLifeTime = settings.otSettings.boxLifeTime;
 		flySpeed = settings.otSettings.boxFlySpeed;
+		cost = settings.otSettings.cost;
 	}
 }

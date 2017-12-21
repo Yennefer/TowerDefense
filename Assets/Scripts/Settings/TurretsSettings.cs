@@ -24,6 +24,7 @@ namespace Settings {
 		public int damage;
 		[Range(20, 60)]
 		public int bombFlySpeed;
+		public int cost;
 	}
 
 	[System.Serializable]
@@ -38,6 +39,7 @@ namespace Settings {
 		public float laserDuration;
 		[Range(1, 20)]
 		public int damage;
+		public int cost;
 	}
 
 	[System.Serializable]
@@ -54,5 +56,6 @@ namespace Settings {
 		public int boxStrength;
 		[Range(20, 60)]
 		public int boxFlySpeed;
+		public int cost;
 	}
 }

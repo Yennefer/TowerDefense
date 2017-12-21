@@ -7,6 +7,7 @@ public class BaseTurret : MonoBehaviour {
 	protected float fireRate;
 	protected float range;
 	protected int flySpeed;
+	protected int cost;
 
 	private Transform rotator;
 	private float nextFireTime;

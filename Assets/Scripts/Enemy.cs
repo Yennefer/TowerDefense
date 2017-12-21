@@ -4,6 +4,8 @@ public class Enemy : MonoBehaviour {
 
 	[SerializeField]
 	private int health = 100;
+	[SerializeField]
+	private int takesLives = 10;
 
 	public void Hit(int damage) {
 		health -= damage;

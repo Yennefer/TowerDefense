@@ -21,12 +21,14 @@ MonoBehaviour:
     range: 20
     damage: 20
     bombFlySpeed: 50
+    cost: 15
   ltSettings:
     name: LaserTurret
     fireRate: 1
     range: 20
     laserDuration: 0.05
     damage: 15
+    cost: 25
   otSettings:
     name: ObstTurret
     fireRate: 2
@@ -34,3 +36,4 @@ MonoBehaviour:
     boxLifeTime: 5
     boxStrength: 20
     boxFlySpeed: 30
+    cost: 5

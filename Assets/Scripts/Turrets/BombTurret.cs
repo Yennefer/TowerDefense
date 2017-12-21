@@ -41,5 +41,6 @@ public class BombTurret : BaseTurret {
 		range = settings.btSettings.range;
 		damage = settings.btSettings.damage;
 		flySpeed = settings.btSettings.bombFlySpeed;
+		cost = settings.btSettings.cost;
 	}
 }
