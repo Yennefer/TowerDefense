@@ -15,9 +15,9 @@ public class LaserTurret : BaseTurret {
 	private void Start()
 	{
 		coll = GetComponent<SphereCollider>();
-
 		if (!coll) {
 			Debug.LogError("Object with LaserTurret script should have a SphereCollider component");
+			return;
 		}
 
 		// setting up enemy detection radius

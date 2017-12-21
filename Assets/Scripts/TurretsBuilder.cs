@@ -21,6 +21,7 @@ public class TurretsBuilder : MonoBehaviour {
 	private void Awake() {
 		if (!turretsSettings) {
 			Debug.LogError("You've forgotten to set a parameter to TurretsBuilder script");
+			return;
 		}
 
 		ParseSettings();

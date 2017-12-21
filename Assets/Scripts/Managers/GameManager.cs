@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     private void Awake() {
         if (!gameMenu || !spawner) {
 			Debug.LogError("You've forgotten to set a parameter to GameManager script");
+            return;
 		}
 
         gameMenu.SetStartListener(StartGame);
