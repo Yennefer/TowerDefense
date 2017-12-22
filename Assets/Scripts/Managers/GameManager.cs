@@ -10,9 +10,40 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private EnemySpawner spawner;
     [SerializeField]
-    private int lives = 100;
+    private int _lives = 100;
     [SerializeField]
-    private int money = 50;
+    private int _money = 50;
+
+    private static GameManager gameManager;
+
+	public static GameManager instance {
+		get {
+			if (gameManager == null) {
+				gameManager = FindObjectOfType<GameManager>();
+
+				if (gameManager == null) {
+					Debug.LogError ("There needs to be one GameManager script on a GameObject in your scene");
+				}
+			}
+			return gameManager;
+		}
+	}
+
+    public int lives {
+        get { return _lives; }
+        set { 
+            _lives = value;
+            UpdateHUB();
+        }
+    }
+
+    public int money {
+        get { return _money; }
+        set { 
+            _money = value;
+            UpdateHUB();
+        }  
+    }
 	
     private void Awake() {
         if (!gameMenu || !spawner || !headsUpDisplay) {

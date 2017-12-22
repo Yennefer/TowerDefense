@@ -10,15 +10,13 @@ namespace EventsSystem {
 		private Dictionary<string, GameEvent> eventDictionary;
 		private static EventManager eventManager;
 
-		private EventManager() {}
-	
 		private static EventManager instance {
 			get {
 				if (eventManager == null) {
-					eventManager = (EventManager) FindObjectOfType (typeof (EventManager));
+					eventManager = FindObjectOfType<EventManager>();
 
 					if (eventManager == null) {
-						Debug.LogError ("There needs to be one active EventManager script on a GameObject in your scene.");
+						Debug.LogError ("There needs to be one EventManager script on a GameObject in your scene");
 					} else {
 						eventManager.Init();
 					}

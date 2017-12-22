@@ -6,16 +6,15 @@ public class Enemy : MonoBehaviour {
 	[SerializeField]
 	private int health = 100;
 	[SerializeField]
-	private int _takesLives = 10;
-
-	public int takesLives { 
-		get { return _takesLives; } 
-	}
+	private int takesLives = 10;
+	[SerializeField]
+	private int givesMoney = 5;
 
 	public void Hit(int damage) {
 		health -= damage;
 		
 		if (health <= 0) {
+			GameManager.instance.money += givesMoney;
 			Die();
 		} else {
 			UpdateHealth();
@@ -32,6 +31,7 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public void AchievedTarget() {
+		GameManager.instance.lives -= takesLives;
 		Die();
 	}
 }
