@@ -68,13 +68,15 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void SetEnemyOnPath(GameObject enemy) {
-		TargetMovement tm = enemy.GetComponent<TargetMovement>();
-		if (!tm) {
-			Debug.LogError("TargetMovement script does not attached to spawned enemy");
+		Enemy e = enemy.GetComponent<Enemy>();
+
+		PathMovement pm = enemy.GetComponent<PathMovement>();
+		if (!pm) {
+			Debug.LogError("PathMovement script does not attached to spawned enemy");
 			return;
 		}
 
-		tm.StartPathMovement(path);
+		pm.StartPathMovement(path, () => e.AchievedTarget());
 	}
 
 	private float GetRandomTime() {
