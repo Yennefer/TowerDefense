@@ -36,7 +36,19 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void StartSpawn() {
+		currentWave = 0;
+		enemyCount = 0;
+
 		StartNewWave();
+	}
+
+	public void StopSpawn() {
+		waveTimer.StopTimer();
+		enemyTimer.StopTimer();
+
+		foreach(Transform child in transform) {
+    		Destroy(child.gameObject);
+		}
 	}
 
 	private void StartNewWave() {

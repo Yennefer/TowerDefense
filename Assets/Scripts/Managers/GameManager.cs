@@ -4,16 +4,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
 
     [SerializeField]
-    private GameMenu gameMenu;
-    [SerializeField]
-    private HUD headsUpDisplay;
-    [SerializeField]
     private EnemySpawner spawner;
     [SerializeField]
-    private int _lives = 100;
+    private int startLives = 100;
     [SerializeField]
-    private int _money = 50;
+    private int startMoney = 50;
 
+    private int _lives;
+    private int _money;
     private static GameManager gameManager;
 
 	public static GameManager instance {
@@ -33,7 +31,11 @@ public class GameManager : MonoBehaviour {
         get { return _lives; }
         set { 
             _lives = value;
-            UpdateHUB();
+            if (_lives <= 0) {
+                EndGame();
+            } else {
+                GUIManager.instance.UpdateInfo(lives, money);
+            }
         }
     }
 
@@ -41,29 +43,32 @@ public class GameManager : MonoBehaviour {
         get { return _money; }
         set { 
             _money = value;
-            UpdateHUB();
+            GUIManager.instance.UpdateInfo(lives, money);
         }  
     }
 	
     private void Awake() {
-        if (!gameMenu || !spawner || !headsUpDisplay) {
+        if (!spawner) {
 			Debug.LogError("You've forgotten to set a parameter to GameManager script");
-            return;
 		}
 
-        gameMenu.SetStartListener(StartGame);
+        GUIManager.instance.SetStartClickListener(StartGame);
+        GUIManager.instance.SetState(GameState.Starting);
     }
 
     private void StartGame() {
-        gameMenu.gameObject.SetActive(false);
+        lives = startLives;
+        money = startMoney;
 
-        headsUpDisplay.gameObject.SetActive(true);
-        UpdateHUB();
+        GUIManager.instance.SetState(GameState.Playing);
+        GUIManager.instance.UpdateInfo(lives, money);
 
         spawner.StartSpawn();
     }
 
-    private void UpdateHUB() {
-        headsUpDisplay.UpdateInfo(lives, money);
+    private void EndGame() {
+        spawner.StopSpawn();
+
+        GUIManager.instance.SetState(GameState.Over);
     }
 }
