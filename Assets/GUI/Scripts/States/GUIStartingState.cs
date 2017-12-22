@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class GUIStartingState : GUIState {
 
+	private StartMenu startMenu;
+
 	private string title = "Asteroid Defense";
 	private string buttonText = "START";
 
-	public static GUIStartingState AddAsComponent(GameObject gameObject, StartMenu startMenu, HUD headsUpDisplay) {
-    	GUIStartingState state = gameObject.AddComponent<GUIStartingState>();
-    	state.Init(startMenu, headsUpDisplay);
-    	return state;
+	public GUIStartingState (StartMenu startMenu) {
+    	this.startMenu = startMenu;
 	}
 
-	public override void InitGUI() {
-		headsUpDisplay.gameObject.SetActive(false);
-
+	protected override void EnterState() {
 		startMenu.SetButtonName(buttonText);
 		startMenu.SetTitle(title);
+
 		startMenu.gameObject.SetActive(true);
 	}
 
-	public override void UpdateInfo(int lives, int money) {
-
+	protected override void ExitState() {
+		startMenu.gameObject.SetActive(false);
 	}
 }

@@ -12,28 +12,28 @@ MonoBehaviour:
   m_Name: Turrets
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
-  - {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
-  - {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
+  - prefab: {fileID: 1949597207363800, guid: 7868aab4716d028439e10eeea04b4451, type: 2}
+    price: 15
+    name: Bomb Turret
+  - prefab: {fileID: 1277137131662864, guid: 3a2aad26a281d2c49aa2725f5d94a1e0, type: 2}
+    price: 25
+    name: Laser Turret
+  - prefab: {fileID: 1323625113119518, guid: 3917219997c35d146aa8815b75f24777, type: 2}
+    price: 5
+    name: Obstacle Turret
   btSettings:
-    name: BombTurret
     fireRate: 3
     range: 20
     damage: 20
     bombFlySpeed: 50
-    cost: 15
   ltSettings:
-    name: LaserTurret
     fireRate: 1
     range: 20
     laserDuration: 0.05
     damage: 15
-    cost: 25
   otSettings:
-    name: ObstTurret
     fireRate: 2
     range: 20
     boxLifeTime: 5
     boxStrength: 20
     boxFlySpeed: 30
-    cost: 5

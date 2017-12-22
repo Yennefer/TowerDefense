@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using EventsSystem;
+using Settings;
 
 public class BuildMenu : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class BuildMenu : MonoBehaviour
     [SerializeField]
     private Button buttonPrefab;
 
+    private int money;
     private string builderId = string.Empty;
+    private List<TurretButton> turretButtons = new List<TurretButton>();
 
     private void Awake()
     {
@@ -21,55 +24,65 @@ public class BuildMenu : MonoBehaviour
 		}
     }
 
-    private void OnEnable()
-    {
-        EventManager.RegisterListener(Events.selectPrefub.ToString(), SelectPrefub);
+    public void UpdateMoney(int money) {
+        this.money = money;
+        UpdateButtons();
     }
 
-    private void OnDisable()
+    public void SelectPrefub(TurretsBuilder builder)
     {
-        EventManager.UnregisterListener(Events.selectPrefub.ToString(), SelectPrefub);
-    }
-
-    private void SelectPrefub(EventObject eo)
-    {
-        TurretsBuilder builder = (TurretsBuilder) eo.getObjectData(EventDataTags.TURRET_BUILDER);
         builderId = builder.id;
-        List<GameObject> prefabs = builder.turretPrefabs;
-        if (prefabs.Count > 0) {
-            InitMenu(prefabs);
+        if (builder.turrets.Count > 0) {
+            InitMenu(builder.turrets);
         }
     }
 
-    private void InitMenu(List<GameObject> prefabs)
+    private void InitMenu(List<PrefabInfo> turretsPrefabs)
     {
         ClearMenu();
-        for (int i = 0; i < prefabs.Count; i++)
-        {
-            GameObject prefab = prefabs[i];
+        for (int i = 0; i < turretsPrefabs.Count; i++) {
             Button button = Instantiate(buttonPrefab);
-            button.transform.SetParent(menuButtons.transform, false);
+            PrefabInfo turretInfo = turretsPrefabs[i];
+            TurretButton turretButton = button.GetComponent<TurretButton>();
+            turretButton.Init(turretInfo);
+            turretButton.SetMoney(money);
+            turretButtons.Add(turretButton);
+
+            button.transform.SetParent(transform);
             button.transform.localScale = new Vector3(1, 1, 1);
             button.transform.position = new Vector3(Screen.width / 2, Screen.height / 2 - i * 50, 0);
-            button.GetComponentInChildren<Text>().text = prefab.name;
-            button.onClick.AddListener(() => SelectClick(prefab));
+            button.onClick.AddListener(() => SelectClick(turretButton));
         }
-        menuButtons.gameObject.SetActive(true);
+    }
+
+    private void UpdateButtons() {
+        foreach (TurretButton turretButton in turretButtons) {
+            turretButton.SetMoney(money);
+        }
     }
 
     private void ClearMenu()
     {
-        foreach (Transform button in menuButtons.transform)
-        {
+        foreach (Transform button in menuButtons.transform) {
             Destroy(button.gameObject);
         }
     }
 
-    public void SelectClick(GameObject prefab)
-    {
-        menuButtons.gameObject.SetActive(false);
+    private void SelectClick(TurretButton turretButton) {
         EventObject eo = new EventObject();
-        eo.putData(EventDataTags.TURRET_TO_BUILD, prefab);
+        eo.putData(EventDataTags.TURRET_TO_BUILD, turretButton.turretPrefab);
         EventManager.TriggerEvent(Events.buildPrefub.ToString() + builderId, eo);
+        Close(turretButton.turretPrice);
+    }
+
+    public void Close(int turretPrice) {
+        EventObject eo = new EventObject();
+        eo.putData(EventDataTags.BUILDER_ID, builderId);
+        eo.putData(EventDataTags.TURRET_PRICE, turretPrice);
+        EventManager.TriggerEvent(Events.closeBuildMenu.ToString() + builderId, eo);
+    }
+
+    public void Close() {
+        Close(0);
     }
 }

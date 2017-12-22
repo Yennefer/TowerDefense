@@ -8,6 +8,12 @@ public class GUIManager : MonoBehaviour {
     private StartMenu startMenu;
     [SerializeField]
     private HUD headsUpDisplay;
+	[SerializeField]
+    private PauseScreen pauseScreen;
+	[SerializeField]
+	private BuildMenu buildMenu;
+	[SerializeField]
+	private CameraController cameraController;
 
 	private Dictionary<GameState, GUIState> states;
 	private static GUIState currentState;
@@ -27,20 +33,26 @@ public class GUIManager : MonoBehaviour {
 	}
 
 	private void Awake() {
-        if (!startMenu || !headsUpDisplay) {
+        if (!startMenu || !headsUpDisplay || !buildMenu || !cameraController) {
 			Debug.LogError("You've forgotten to set a parameter to GUIManager script");
             return;
 		}
         
 		PopulateGUIStates();
+		SetState(GameState.STARTING);
     }
+
+	private void Update() {
+		currentState.Update();
+	}
 
 	private void PopulateGUIStates() {
 		states = new Dictionary<GameState, GUIState>();
-		states.Add(GameState.Starting, GUIStartingState.AddAsComponent(gameObject, startMenu, headsUpDisplay));
-		states.Add(GameState.Playing, GUIPlayingState.AddAsComponent(gameObject, startMenu, headsUpDisplay));
-		states.Add(GameState.Paused, GUIPausedState.AddAsComponent(gameObject, startMenu, headsUpDisplay));
-		states.Add(GameState.Over, GUIOverState.AddAsComponent(gameObject, startMenu, headsUpDisplay));
+		states.Add(GameState.STARTING, new GUIStartingState(startMenu));
+		states.Add(GameState.PLAYING, new GUIPlayingState(headsUpDisplay, cameraController));
+		states.Add(GameState.PAUSED, new GUIPausedState(pauseScreen));
+		states.Add(GameState.IN_BUILD_MENU, new GUIBuildMenuState(buildMenu, headsUpDisplay));
+		states.Add(GameState.OVER, new GUIOverState(startMenu));
 	}
 
 	public void SetState(GameState gameState) {
@@ -55,19 +67,26 @@ public class GUIManager : MonoBehaviour {
 				return;
 			}
 			
-			currentState.enabled = false;
+			currentState.active = false;
 		}
 
 		currentState = state;
-		currentState.enabled = true;
-		currentState.InitGUI();
+		currentState.active = true;
 	}
 
 	public void SetStartClickListener (UnityAction listener) {
 		startMenu.SetStartClickListener(listener);
 	}
 
-    public void UpdateInfo(int lives, int money) {
-		currentState.UpdateInfo(lives, money);
+    public void UpdateLives(int lives) {
+		currentState.UpdateLives(lives);
+    }
+
+	public void UpdateMoney(int money) {
+		currentState.UpdateMoney(money);
+    }
+
+	public void UpdateBuildMenu(TurretsBuilder builder) {
+		currentState.UpdateBuildMenu(builder);
     }
 }

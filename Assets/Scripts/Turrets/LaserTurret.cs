@@ -50,6 +50,5 @@ public class LaserTurret : BaseTurret {
 		range = settings.ltSettings.range;
 		damage = settings.ltSettings.damage;
 		laserDuration = settings.ltSettings.laserDuration;
-		cost = settings.ltSettings.cost;
 	}
 }

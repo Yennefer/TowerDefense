@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class GUIOverState : GUIState {
 
+	private StartMenu startMenu;
+
 	private string title = "Game Over";
 	private string buttonText = "RESTART";
 
-	public static GUIOverState AddAsComponent(GameObject gameObject, StartMenu startMenu, HUD headsUpDisplay) {
-    	GUIOverState state = gameObject.AddComponent<GUIOverState>();
-    	state.Init(startMenu, headsUpDisplay);
-    	return state;
+	public GUIOverState (StartMenu startMenu) {
+    	this.startMenu = startMenu;
 	}
 
-	public override void InitGUI() {
-		headsUpDisplay.gameObject.SetActive(false);
-
+	protected override void EnterState() {
 		startMenu.SetButtonName(buttonText);
 		startMenu.SetTitle(title);
+
 		startMenu.gameObject.SetActive(true);
 	}
 
-	public override void UpdateInfo(int lives, int money) {
-
+	protected override void ExitState() {
+		startMenu.gameObject.SetActive(false);
 	}
 	
 }

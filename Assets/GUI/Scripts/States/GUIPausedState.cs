@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GUIPausedState : GUIState {
+    private PauseScreen pauseScreen;
+    
+    public GUIPausedState(PauseScreen pauseScreen) {
+        this.pauseScreen = pauseScreen;
+    }
 
-	public static GUIPausedState AddAsComponent(GameObject gameObject, StartMenu startMenu, HUD headsUpDisplay) {
-    	GUIPausedState state = gameObject.AddComponent<GUIPausedState>();
-    	state.Init(startMenu, headsUpDisplay);
-    	return state;
-	}
-	
-	public override void InitGUI() {
-		headsUpDisplay.gameObject.SetActive(false);
-
-		startMenu.gameObject.SetActive(false);
+    protected override void EnterState() {
+        pauseScreen.gameObject.SetActive(true);
 	}
 
-	public override void UpdateInfo(int lives, int money) {
-
+	protected override void ExitState() {
+        pauseScreen.gameObject.SetActive(false);
 	}
 }

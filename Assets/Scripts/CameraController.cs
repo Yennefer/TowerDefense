@@ -8,6 +8,12 @@ public class CameraController : MonoBehaviour {
 	private float camSpd = 0.5f;
 	private float accFactor = 3.0f;
 	private float scaleSpdFactor = 8.0f;
+	private bool _active = false;
+
+	public bool active {
+		get { return _active; }
+		set { _active = value; }
+	}
 
 	private void Start()
 	{
@@ -16,6 +22,10 @@ public class CameraController : MonoBehaviour {
 
 	private void Update()
 	{
+		if (!active) {
+			return;
+		}
+		
 		if (Input.GetMouseButton(1)) 
 		{
 			float y = Input.GetAxis("Mouse X");

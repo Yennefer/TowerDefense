@@ -9,23 +9,36 @@ public class TurretsBuilder : MonoBehaviour {
 	private TurretsSettings turretsSettings;
 
 	private string _id = System.Guid.NewGuid().ToString();
-	private List<GameObject> _turretPrefabs = new List<GameObject>();
+	private List<PrefabInfo> _turrets = new List<PrefabInfo>();
+	private MeshRenderer mr;
 
 	public string id { 
 		get { return _id; }
 	}
 
-	public List<GameObject> turretPrefabs { 
-		get { return _turretPrefabs; }
+	public List<PrefabInfo> turrets { 
+		get { return _turrets; }
 	}
 
 	private void Awake() {
-		if (!turretsSettings) {
+		mr = GetComponent<MeshRenderer>();
+
+		if (!mr) {
+			Debug.LogError("Object with TurretsBuilder script should have a MeshRenderer component");
+			return;
+		} else if (!turretsSettings) {
 			Debug.LogError("You've forgotten to set a parameter to TurretsBuilder script");
 			return;
 		}
 
 		ParseSettings();
+	}
+
+	public void Init() {
+		SetVisible(true);
+		foreach(Transform child in transform) {
+    		Destroy(child.gameObject);
+		}
 	}
 
 	private void OnEnable() {
@@ -37,24 +50,31 @@ public class TurretsBuilder : MonoBehaviour {
 	}
 
 	private void OnMouseDown () {
-		EventObject eo = new EventObject();
-        eo.putData(EventDataTags.TURRET_BUILDER, this);
-		EventManager.TriggerEvent(Events.selectPrefub.ToString(), eo);
+		GameManager.instance.SelectTurretToBuild(this);
 	}
 
-	public void ParseSettings() {
-		_turretPrefabs.AddRange( turretsSettings.prefabs );
+	private void ParseSettings() {
+		foreach (PrefabInfo turretPrefab in turretsSettings.prefabs) {
+			_turrets.Add( turretPrefab );
+		}
 	}
 
 	private void BuildTurret(EventObject eo) {
-		GameObject turretToBuild = (GameObject) eo.getObjectData(EventDataTags.TURRET_TO_BUILD);
-		GameObject turret = Instantiate(turretToBuild, transform.position, transform.rotation);
+		GameObject turretPrefab = (GameObject) eo.getObjectData(EventDataTags.TURRET_TO_BUILD);
+		Vector3 turretPos = transform.position;
+		turretPos.y = 0;
+		GameObject turret = Instantiate(turretPrefab, turretPos, transform.rotation);
+		turret.transform.SetParent(this.transform);
+
 		InitTurret(turret);
-		Destroy(gameObject);
+		SetVisible(false);
 	}
 
-	public void InitTurret(GameObject prefab) {
-		BaseTurret bt = prefab.GetComponentInChildren<BaseTurret>();
-		bt.Init(turretsSettings);
+	private void InitTurret(GameObject turret) {
+		turret.GetComponentInChildren<BaseTurret>().Init(turretsSettings);
+	}
+
+	private void SetVisible(bool visibility) {
+		mr.enabled = visibility;
 	}
 }

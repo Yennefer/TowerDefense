@@ -2,20 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GUIState : MonoBehaviour {
+public class GUIState {
+	private bool _active = false;
 
-	protected StartMenu startMenu; 
-	protected HUD headsUpDisplay;
+	public bool active {
+		get { return _active; }
+		set {
+			if (_active == value) {
+				return;
+			}
 
-	protected void Init(StartMenu startMenu, HUD headsUpDisplay) {
-		this.startMenu = startMenu;
-		this.headsUpDisplay = headsUpDisplay;
-		enabled = false;
+			_active = value;
+			if (_active) {
+				EnterState();
+			} else {
+				ExitState();
+			}
+		}
 	}
 
-    public virtual void InitGUI() {
+	public virtual void Update() {
 	}
 
-	public virtual void UpdateInfo(int lives, int money) {
+    protected virtual void EnterState() {
+	}
+
+	protected virtual void ExitState() {
+	}
+
+	public virtual void UpdateLives(int lives) {
+	}
+
+	public virtual void UpdateMoney(int money) {
+	}
+
+	public virtual void UpdateBuildMenu(TurretsBuilder builder) {
 	}
 }

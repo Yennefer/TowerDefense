@@ -1,6 +1,7 @@
 ﻿public enum GameState {
-	Starting,
-	Playing,
-	Paused,
-	Over
+		STARTING,
+		PLAYING,
+		PAUSED,
+		IN_BUILD_MENU,
+		OVER
 }

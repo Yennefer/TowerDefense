@@ -14,8 +14,11 @@ public class HUD : MonoBehaviour {
 		}
     }
 
-	public void UpdateInfo(int lives, int money) {
+	public void UpdateLives(int lives) {
 		livesText.text = "Lives: " + lives;
+	}
+
+	public void UpdateMoney(int money) {
 		moneyText.text = "Money: " + money;
 	}
 }

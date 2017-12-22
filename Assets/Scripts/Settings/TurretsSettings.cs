@@ -6,16 +6,22 @@ namespace Settings {
 	[CreateAssetMenu(fileName = "Turrets", menuName = "Settings/Turrets", order = 1)]
 	public class TurretsSettings : ScriptableObject
 	{
-		public List<GameObject> prefabs;
+		public List<PrefabInfo> prefabs;
 		public BTSettings btSettings;
 		public LTSettings ltSettings;
 		public OTSettings otSettings;
 	}
 
 	[System.Serializable]
+	public class PrefabInfo {
+		public GameObject prefab;
+		public int price;
+		public string name;
+	}
+
+	[System.Serializable]
 	public class BTSettings
 	{
-		public string name = "BombTurret";
 		[Range(0, 10)]
 		public float fireRate;
 		[Range(5, 20)]
@@ -24,13 +30,11 @@ namespace Settings {
 		public int damage;
 		[Range(20, 60)]
 		public int bombFlySpeed;
-		public int cost;
 	}
 
 	[System.Serializable]
 	public class LTSettings
 	{
-		public string name = "LaserTurret";
 		[Range(0, 10)]
 		public float fireRate;
 		[Range(5, 20)]
@@ -39,13 +43,11 @@ namespace Settings {
 		public float laserDuration;
 		[Range(1, 20)]
 		public int damage;
-		public int cost;
 	}
 
 	[System.Serializable]
 	public class OTSettings
 	{
-		public string name = "ObstTurret";
 		[Range(0, 10)]
 		public float fireRate;
 		[Range(5, 20)]
@@ -56,6 +58,5 @@ namespace Settings {
 		public int boxStrength;
 		[Range(20, 60)]
 		public int boxFlySpeed;
-		public int cost;
 	}
 }

@@ -3,20 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GUIPlayingState : GUIState {
+	private HUD headsUpDisplay;
+	private CameraController cameraController;
 
-	public static GUIPlayingState AddAsComponent(GameObject gameObject, StartMenu startMenu, HUD headsUpDisplay) {
-    	GUIPlayingState state = gameObject.AddComponent<GUIPlayingState>();
-    	state.Init(startMenu, headsUpDisplay);
-    	return state;
+	public GUIPlayingState (HUD headsUpDisplay, CameraController cameraController) {
+    	this.headsUpDisplay = headsUpDisplay;
+		this.cameraController = cameraController;
 	}
 
-	public override void InitGUI() {
+	protected override void EnterState() {
 		headsUpDisplay.gameObject.SetActive(true);
-
-		startMenu.gameObject.SetActive(false);
+		cameraController.active = true;
 	}
 
-	public override void UpdateInfo(int lives, int money) {
-		headsUpDisplay.UpdateInfo(lives, money);
+	protected override void ExitState() {
+		headsUpDisplay.gameObject.SetActive(false);
+		cameraController.active = false;
+	}
+
+	public override void UpdateLives(int lives) {
+		headsUpDisplay.UpdateLives(lives);
+	}
+
+	public override void UpdateMoney(int money) {
+		headsUpDisplay.UpdateMoney(money);
 	}
 }
