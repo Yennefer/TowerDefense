@@ -36,22 +36,22 @@ public class CameraController : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.A) && transform.position.z <= trn.terrainData.size.z/2)
 		{
-			transform.Translate(Vector3.forward * camSpd, Space.World);
+			transform.Translate(Vector3.left * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.D) && -transform.position.z <= trn.terrainData.size.z/2)
 		{
-			transform.Translate(Vector3.back * camSpd, Space.World);
+			transform.Translate(Vector3.right * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.W) && transform.position.x <= trn.terrainData.size.x/2)
 		{
-			transform.Translate(Vector3.right * camSpd, Space.World);
+			transform.Translate(Vector3.forward * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.S) && -transform.position.x <= trn.terrainData.size.x/2)
 		{
-			transform.Translate(Vector3.left * camSpd, Space.World);
+			transform.Translate(Vector3.back * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.Q) && transform.position.y >= 0)
