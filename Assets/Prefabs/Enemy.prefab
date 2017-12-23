@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2dc5f596bcbf243badd87606734f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 4709450660295102, guid: 6898bc6488c166343873a5d324f40030, type: 2}
+  path: {fileID: 1529660719960390, guid: aca410f5a43e3374aa287b96039c2ebb, type: 2}
 --- !u!136 &136140871430295620
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1429,6 +1429,7 @@ SkinnedMeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
@@ -1444,6 +1445,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1508,7 +1510,7 @@ NavMeshAgent:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225203621667266}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5

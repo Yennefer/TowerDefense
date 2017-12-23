@@ -1,29 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
+using Settings;
 
 public class LaserTurret : BaseTurret {
 
 	[SerializeField]
 	private Transform laserEmit;
-	[SerializeField]
-	private float laserDuration = 0.08f;
-	[SerializeField]
-	private int damage = 10;
 
+	private float laserDuration;
+	private int damage;
 	private LineRenderer laserLine;
 	private Timer timer;
-	private UnityAction hideRayAction;
-
+	private SphereCollider coll;
+	
 	private void Start()
 	{
-		// get linerenderer
+		coll = GetComponent<SphereCollider>();
+		if (!coll) {
+			Debug.LogError("Object with LaserTurret script should have a SphereCollider component");
+			return;
+		}
+
+		// setting up enemy detection radius
+		coll.radius = range;
+
+		// get linerenderer to draw laser line
 		laserLine = GetComponent<LineRenderer>();
+
 		laserLine.SetPosition(0, laserEmit.position);
 
-		hideRayAction += HideRayWithTimer;
-		timer = Timer.AddAsComponent(gameObject, hideRayAction);
+		timer = Timer.AddAsComponent(gameObject, () => { laserLine.enabled = false; timer.StopTimer(); } );
 	}
 	
 	protected override void Fire(Enemy enemy)
@@ -39,9 +44,11 @@ public class LaserTurret : BaseTurret {
 		timer.StartTimer(laserDuration);
 	}
 
-	private void HideRayWithTimer()
+	protected override void ExtractSettings(TurretsSettings settings)
 	{
-		laserLine.enabled = false;
-		timer.StopTimer();
+		fireRate = settings.ltSettings.fireRate;
+		range = settings.ltSettings.range;
+		damage = settings.ltSettings.damage;
+		laserDuration = settings.ltSettings.laserDuration;
 	}
 }
