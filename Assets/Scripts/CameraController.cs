@@ -11,9 +11,6 @@ public class CameraController : MonoBehaviour {
 	private void Start()
 	{
 		cam = GetComponent<Camera>();
-
-		// just for testing purposes
-		InputManager.BombFire = () => {Debug.Log("Test");};
 	}
 
 	private void Update()
