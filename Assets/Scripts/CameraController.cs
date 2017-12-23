@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-	private Camera cam;
+	private Terrain trn;
 	private float camSpd = 0.5f;
 	private float accFactor = 3.0f;
+	private float scaleSpdFactor = 8.0f;
 
 	private void Start()
 	{
-		cam = GetComponent<Camera>();
+		trn = GameObject.FindObjectOfType<Terrain>();
 	}
 
 	private void Update()
@@ -23,44 +24,44 @@ public class CameraController : MonoBehaviour {
 			transform.eulerAngles = transform.eulerAngles - rotation;
 		}
 
-		if (Input.GetKey(KeyCode.A))
+		if (Input.GetKey(KeyCode.A) && transform.position.z <= trn.terrainData.size.z/2)
 		{
-			cam.transform.Translate(Vector3.forward * camSpd, Space.World);
+			transform.Translate(Vector3.forward * camSpd, Space.World);
 		}
 
-		if (Input.GetKey(KeyCode.D))
+		if (Input.GetKey(KeyCode.D) && -transform.position.z <= trn.terrainData.size.z/2)
 		{
-			cam.transform.Translate(Vector3.back * camSpd, Space.World);
+			transform.Translate(Vector3.back * camSpd, Space.World);
 		}
 
-		if (Input.GetKey(KeyCode.W))
+		if (Input.GetKey(KeyCode.W) && transform.position.x <= trn.terrainData.size.x/2)
 		{
-			cam.transform.Translate(Vector3.right * camSpd, Space.World);
+			transform.Translate(Vector3.right * camSpd, Space.World);
 		}
 
-		if (Input.GetKey(KeyCode.S))
+		if (Input.GetKey(KeyCode.S) && -transform.position.x <= trn.terrainData.size.x/2)
 		{
-			cam.transform.Translate(Vector3.left * camSpd, Space.World);
+			transform.Translate(Vector3.left * camSpd, Space.World);
 		}
 
-		if (Input.GetKey(KeyCode.Q))
+		if (Input.GetKey(KeyCode.Q) && transform.position.y >= 0)
 		{
-			cam.transform.Translate(Vector3.down * camSpd);
+			transform.Translate(Vector3.down * camSpd);
 		}
 
-		if (Input.GetKey(KeyCode.E))
+		if (Input.GetKey(KeyCode.E) && transform.position.y <= trn.terrainData.size.x/4)
 		{
-			cam.transform.Translate(Vector3.up * camSpd);
+			transform.Translate(Vector3.up * camSpd);
 		}
 
 		if (Input.GetAxis("Mouse ScrollWheel") > 0)
 		{
-			cam.transform.Translate(Vector3.forward * camSpd);
+			transform.Translate(Vector3.forward * camSpd * scaleSpdFactor);
 		}
 
 		if (Input.GetAxis("Mouse ScrollWheel") < 0)
 		{
-			cam.transform.Translate(Vector3.back * camSpd);
+			transform.Translate(Vector3.back * camSpd * scaleSpdFactor);
 		}
 
 		if (Input.GetKeyDown(KeyCode.LeftShift))
