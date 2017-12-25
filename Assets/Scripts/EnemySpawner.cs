@@ -36,7 +36,19 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	public void StartSpawn() {
+		currentWave = 0;
+		enemyCount = 0;
+
 		StartNewWave();
+	}
+
+	public void StopSpawn() {
+		waveTimer.StopTimer();
+		enemyTimer.StopTimer();
+
+		foreach(Transform child in transform) {
+    		Destroy(child.gameObject);
+		}
 	}
 
 	private void StartNewWave() {
@@ -68,13 +80,15 @@ public class EnemySpawner : MonoBehaviour {
 	}
 
 	private void SetEnemyOnPath(GameObject enemy) {
-		TargetMovement tm = enemy.GetComponent<TargetMovement>();
-		if (!tm) {
-			Debug.LogError("TargetMovement script does not attached to spawned enemy");
+		Enemy e = enemy.GetComponent<Enemy>();
+
+		PathMovement pm = enemy.GetComponent<PathMovement>();
+		if (!pm) {
+			Debug.LogError("PathMovement script does not attached to spawned enemy");
 			return;
 		}
 
-		tm.StartPathMovement(path);
+		pm.StartPathMovement(path, () => e.AchievedTarget());
 	}
 
 	private float GetRandomTime() {

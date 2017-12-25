@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
-public class TargetMovement : MonoBehaviour {
+public class PathMovement : MonoBehaviour {
 
 	private Transform path;
 	private NavMeshAgent agent;
 	private int currentNode = 0;
+	private UnityAction pathEndedListener;
+	private bool stop = false;
 
 	private void Awake () {
         agent = GetComponent<NavMeshAgent>();
@@ -15,13 +18,14 @@ public class TargetMovement : MonoBehaviour {
     }
 
 	private void Update() {
-		if (agent.remainingDistance <= 0.25f) {
+		if (agent.remainingDistance <= 0.25f && !stop) {
 			MoveToNode(currentNode++);
 		}
 	}
 
-	public void StartPathMovement (GameObject path) {
+	public void StartPathMovement (GameObject path, UnityAction onPathEndedListener) {
 		this.path = path.transform;
+		this.pathEndedListener = onPathEndedListener;
 
 		agent.enabled = true;
 		MoveToNode(0);
@@ -33,7 +37,8 @@ public class TargetMovement : MonoBehaviour {
 			nodePosition.y = 0;
 			agent.SetDestination( nodePosition );
 		} else {
-			Destroy(gameObject);
+			pathEndedListener.Invoke();
+			stop = true;
 		}
     }
 }

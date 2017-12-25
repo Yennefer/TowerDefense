@@ -8,6 +8,12 @@ public class CameraController : MonoBehaviour {
 	private float camSpd = 0.5f;
 	private float accFactor = 3.0f;
 	private float scaleSpdFactor = 8.0f;
+	private bool _active = false;
+
+	public bool active {
+		get { return _active; }
+		set { _active = value; }
+	}
 
 	private void Start()
 	{
@@ -16,6 +22,10 @@ public class CameraController : MonoBehaviour {
 
 	private void Update()
 	{
+		if (!active) {
+			return;
+		}
+		
 		if (Input.GetMouseButton(1)) 
 		{
 			float y = Input.GetAxis("Mouse X");
@@ -26,22 +36,22 @@ public class CameraController : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.A) && transform.position.z <= trn.terrainData.size.z/2)
 		{
-			transform.Translate(Vector3.forward * camSpd, Space.World);
+			transform.Translate(Vector3.left * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.D) && -transform.position.z <= trn.terrainData.size.z/2)
 		{
-			transform.Translate(Vector3.back * camSpd, Space.World);
+			transform.Translate(Vector3.right * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.W) && transform.position.x <= trn.terrainData.size.x/2)
 		{
-			transform.Translate(Vector3.right * camSpd, Space.World);
+			transform.Translate(Vector3.forward * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.S) && -transform.position.x <= trn.terrainData.size.x/2)
 		{
-			transform.Translate(Vector3.left * camSpd, Space.World);
+			transform.Translate(Vector3.back * camSpd, Space.Self);
 		}
 
 		if (Input.GetKey(KeyCode.Q) && transform.position.y >= 0)
