@@ -1,4 +1,6 @@
-﻿public enum Events {
-	buildPrefub,
-	selectPrefub
+﻿namespace EventsSystem {
+	public enum Events {
+		buildPrefub,
+		closeBuildMenu
+	}
 }
